@@ -43,6 +43,11 @@ class User extends Model
       return ['login', 'password', 'profile', 'status'];
     }
 
+    public function profile(): array
+    {
+      return ['Administrator', 'Usuário'];
+    }
+
     public function labels(): array
     {
       return [

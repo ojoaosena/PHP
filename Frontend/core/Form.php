@@ -27,11 +27,11 @@ class Form
     );
   }
     
-  public function select(Model $model, string $attribute, string $options, string $value = ''): string
+  public function select(Model $model, string $attribute, string $value = ''): string
   {
     return sprintf('
-      <div class="form-select">
-        <select  name="%s" class="form-control %s">
+      <div class="m-3">
+        <select name="%s" class="form-select %s">
           %s
         </select>
         <div class="invalid-feedback">
@@ -41,19 +41,20 @@ class Form
     ',
       $attribute,
       $model->hasError($attribute) ? 'is-invalid' : '',
-      implode("<br>", $this->option($model, $options, $value)),
+      implode("<br>", $this->option($model, $attribute, $value)),
       $model->firstError($attribute)
     );
   }
     
   private function option(Model $model, string $options, string $value)
   {
-    $elements = [];
+    $elements = ['<option>- Selecione uma opção -</option>'];
 
     foreach ($model->$options() as $option) {
       $select = '';
 
       if ($value === $option) {
+        array_shift($elements);
         $select = 'selected';
       }
 

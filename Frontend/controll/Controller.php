@@ -15,22 +15,24 @@ class Controller
 
   public function loginG()
   {
-    return Application::$app->view->render('login', 'main');
+    return Application::$app->view->render('login', 'main', ['model' => $this->user]);
   }
 
   public function loginP()
   {
-    # code...
+    
   }
 
   public function newUserG()
   {
-    return Application::$app->view->render('newUser', 'main');
+    return Application::$app->view->render('newUser', 'main', ['model' => $this->user]);
   }
 
   public function newUserP()
   {
-    # code...
+    $this->user->loadData(Application::$app->request->body());
+    $this->user->validate();
+    return Application::$app->view->render('newUser', 'main', ['model' => $this->user]);
   }
 }
 ?>
