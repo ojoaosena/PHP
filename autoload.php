@@ -1,21 +1,27 @@
-<?
-spl_autoload_register(function ($class){
-  $len=strlen(dirname(__DIR__).'\\'.basename(__DIR__));
-  $paths=glob(dirname(__DIR__).'\\'.basename(__DIR__).'\*',GLOB_ONLYDIR);
+<?php
+spl_autoload_register(function ($class) {
   $folders=[];
   $prefixes=[];
+  $root = dirname(__DIR__).'/'.basename(__DIR__);
+  $length = strlen($root);
+  $paths = glob("$root/*",GLOB_ONLYDIR);
+
   foreach($paths as $path){
-    array_push($folders,str_replace('\\','/',substr($path, $len).'/'));
-    array_push($prefixes,'app'.substr($path,$len).'\\');
+    array_push($folders, substr($path, $length).'/');
+    array_push($prefixes,'app'.substr($path,$length).'/');
   }
+
   foreach($prefixes as $prefix){
-    $len=strlen($prefix);
-    $relative_class=substr($class, $len);
+    $length = strlen($prefix);
+    $relative_class = substr($class, $length);
+
     foreach($folders as $folder){      
-      $file=__DIR__.$folder.str_replace('\\','/',$relative_class).'.php';
+      $file=__DIR__.$folder.$relative_class.'.php';
+
       if(file_exists($file)){
         require_once $file;
       }
     }
   }
 });
+?>

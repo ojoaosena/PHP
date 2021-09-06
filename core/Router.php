@@ -24,14 +24,13 @@ class Router
 
 		if ($callback === FALSE) {
 			Application::$app->response->codeHTTP(404);
-			return Application::$app->view->renderView('404', 'off');
+			return Application::$app->view->render('notFound', 'main');
 		}
 
 		if (is_array($callback)) {
-			/* new $callback[0]() transforma [Controller::class] em [new Controller()] */
 			$callback[0] = new $callback[0]();
 		}
-		/* neste caso, transforma [new Controller(), 'view'] em Controller->view() */
+
 		return call_user_func($callback);
 	}
 }

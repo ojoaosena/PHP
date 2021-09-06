@@ -5,60 +5,50 @@ use app\core\Model;
 
 class User extends Model
 {
-    private const STATUS_INACTIVE = 0;
-    private const STATUS_ACTIVE = 1;
-    private const STATUS_DELETED = 2;
+    private const INACTIVE = 0;
+    private const ACTIVE = 1;
 
     public string $login = '';
-    public string $email = '';
-    public int $status = self::STATUS_INACTIVE;
-    public string $senha = '';
-    public string $confirmaSenha = '';
+    public string $password = '';
+    public string $profile = '';
+    public int $status = self::INACTIVE;        
 
     public static function tableName(): string
     {
-        return 'usuarios';
+      return 'users';
     }
 
     public static function primaryKey(): string
     {
-        return 'id';
+      return 'id';
     }
 
     public function save()
     {
-        $this->status = self::STATUS_INACTIVE;
-        $this->senha = password_hash($this->senha, PASSWORD_DEFAULT);
-        return parent::save();
+      $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+      return parent::save();
     }
 
     public function rules(): array
     {
-        return [
-            'login' => [self::RULE_REQUIRED, [self::RULE_UNIQUE, 'class' => self::class]],
-            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL],
-            'senha' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 4], [self::RULE_MAX, 'max' => 16]],
-            'confirmaSenha' => [self::RULE_REQUIRED, [self::RULE_MATCH, 'match' => 'senha']],
-        ];
+      return [
+        'login' => [self::RULE_REQUIRED, self::RULE_EMAIL],
+        'password' => [self::RULE_REQUIRED],
+        'profile' => [self::RULE_REQUIRED]
+      ];
     }
 
     public function attributes(): array
     {
-        return ['login', 'email', 'senha', 'status'];
-    }
-
-    public function attributesCheck(): array
-    {
-        return ['login', 'email', 'senha', 'status'];
+      return ['login', 'password', 'profile', 'status'];
     }
 
     public function labels(): array
     {
-        return [
-            'login' => 'Login',
-            'email' => 'Email',
-            'senha' => 'Senha',
-            'confirmaSenha' => 'Confirma senha'
-        ];
+      return [
+        'login' => 'Login',
+        'password' => 'Senha',
+        'profile' => 'Perfil',
+      ];
     }
 }

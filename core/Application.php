@@ -6,19 +6,17 @@ class Application
 	public static string $ROOT_DIR;
 
 	public static Application $app;
-
 	public Database $database;
 	public Form $form;
-    public Request $request;
+  public Request $request;
 	public Response $response;
 	public Router $router;
 	public Session $session;
-    public View $view;
+  public View $view;
 
 	function __construct($rootPath, array $config)
 	{
 		self::$ROOT_DIR = $rootPath;
-		/* $app serve para usar as classes através de Application fora desta classe */
 		self::$app = $this;
 
 		$this->database = new Database($config);
