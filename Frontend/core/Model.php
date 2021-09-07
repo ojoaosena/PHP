@@ -1,8 +1,6 @@
 <?php
 namespace app\core;
 
-use PDO;
-
 abstract class Model
 {
   public const RULE_REQUIRED = 'required';
@@ -17,21 +15,10 @@ abstract class Model
 	abstract public static function tableName(): string;
 
   abstract public function attributes(): array;
-  
-  abstract public static function primaryKey(): string;
 
   abstract public function rules(): array;
 
   abstract public function labels(): array;
-
-  public function loadData($data)
-  {
-    foreach ($data as $key => $value) {
-      if (property_exists($this, $key)) {
-        $this->{$key} = $value;
-      }
-    }
-  }
 
   public function hasError($attribute)
   {
@@ -76,9 +63,20 @@ abstract class Model
     return $this->labels()[$attribute] ?? $attribute;
   }
 
-  public function validate()
+  public function loadData($data)
   {
-    foreach ($this->rules() as $attribute => $rules) {
+    $attributes = [];
+
+    foreach ($data as $key => $value) {
+      if (property_exists($this, $key)) {
+        $this->{$key} = $value;
+        $attributes[$key] = $value;
+      }
+    }
+
+    $rls = array_intersect_key($this->rules(), $attributes);
+
+    foreach ($rls as $attribute => $rules) {
       $value = $this->{$attribute};
 
       foreach ($rules as $rule) {

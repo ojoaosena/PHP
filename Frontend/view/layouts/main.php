@@ -9,11 +9,13 @@
   <title>Document</title>
 </head>
 <body>
-  <?php if (Application::$app->session->status() && Application::$app->session->text()): ?>
-    <div class="alert alert-<?= Application::$app->session->status() ?> text-center my-0 py-1 m-auto">
-      <?= Application::$app->session->text() ?>
-    </div>
-  <?php endif; ?>
+  <header class="position-absolute top-0 start-50 translate-middle-x">
+    <?php if (Application::$app->session->status() && Application::$app->session->text()): ?>
+      <div class="alert alert-<?= Application::$app->session->status() ?>">
+        <?= Application::$app->session->text() ?>
+      </div>
+    <?php endif; ?>
+  </header>
   <main class="position-absolute top-50 start-50 translate-middle">
     {{content}}
   </main>

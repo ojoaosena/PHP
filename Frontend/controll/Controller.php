@@ -22,8 +22,7 @@ class Controller
 
   public function loginP()
   {
-    $this->user->loadData(Application::$app->request->body());
-    if ($this->user->validate()) {
+    if ($this->user->loadData(Application::$app->request->body())) {
       $result = json_decode($this->user->json($this->host), TRUE);
 
       if (!is_bool($result)) {
@@ -49,8 +48,7 @@ class Controller
 
   public function newUserP()
   {
-    $this->user->loadData(Application::$app->request->body());
-    if ($this->user->validate()) {
+    if ($this->user->loadData(Application::$app->request->body())) {
       $result = json_decode($this->user->json("$this->host/newuser"), TRUE);
 
       if (is_bool($result)) {
