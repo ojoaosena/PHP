@@ -29,15 +29,6 @@ class User extends Model
       return parent::save();
     }
 
-    public function rules(): array
-    {
-      return [
-        'login' => [self::RULE_REQUIRED, self::RULE_EMAIL],
-        'password' => [self::RULE_REQUIRED],
-        'profile' => [self::RULE_REQUIRED]
-      ];
-    }
-
     public function attributes(): array
     {
       return ['login', 'password', 'profile', 'status'];
@@ -46,14 +37,5 @@ class User extends Model
     public function profile(): array
     {
       return ['Administrator', 'Usuário'];
-    }
-
-    public function labels(): array
-    {
-      return [
-        'login' => 'Login',
-        'password' => 'Senha',
-        'profile' => 'Perfil',
-      ];
     }
 }

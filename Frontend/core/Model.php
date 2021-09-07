@@ -128,81 +128,33 @@ abstract class Model
     return empty($this->errors);
   }
 
-	public function save()
-	{
-		$tableName = static::tableName();
-		$attributes = $this->attributes();
-		$params = array_map(fn($attr) => ":$attr", $attributes);
-		$statement = Application::$app->database->pdo->prepare("INSERT INTO $tableName (".implode(',', $attributes).") VALUES (".implode(',', $params).")");
+  public function json(string $url, string $token = '')
+  {
+    $data = [];
 
-		foreach ($attributes as $attribute) {
-			$statement->bindValue(":$attribute", $this->{$attribute});
+    $ch = curl_init($url);
+
+    foreach ($this->attributes() as $attribute) {
+      $data[$attribute] = $this->{$attribute};
 		}
 
-		return $statement->execute();
-	}
+    $payload = json_encode($data);
 
-	public function update($where)
-	{
-		$tableName = static::tableName();
-		$attributes = $this->attributes();
-    $params = implode(", ", array_map(fn($attr) => "$attr = :$attr", $attributes));
-    $attrib = array_keys($where);
-		$sql = implode("AND ", array_map(fn($attb) => "$attb = :$attb", $attrib));
-		$statement = Application::$app->database->pdo->prepare("UPDATE $tableName SET $params WHERE $sql");
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
 
-		foreach ($attributes as $attribute) {
+    $header = [
+      'Content-Type: application/json',
+      $token
+    ];
 
-      foreach ($where as $key => $item) {
-        $statement->bindValue(":$attribute", $this->{$attribute});
-        $statement->bindValue(":$key", $item);
-      }
-    }
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 
-		return $statement->execute();
-	}
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 
-	public function delete($where)
-	{
-		$tableName = static::tableName();
-		$attributes = array_keys($where);
-		$sql = implode("AND ", array_map(fn($attr) => "$attr = :$attr", $attributes));
-		$statement = Application::$app->database->pdo->prepare("DELETE FROM $tableName WHERE $sql");
+    $result = curl_exec($ch);
 
-		foreach ($where as $key => $item) {
-			$statement->bindValue(":$key", $item);
-		}
+    curl_close($ch);
 
-		return $statement->execute();
-	}
-
-	public function findOne($where)
-	{
-		$tableName = static::tableName();
-		$attributes = array_keys($where);
-		$sql = implode("AND ", array_map(fn($attr) => "$attr = :$attr", $attributes));
-		$statement = Application::$app->database->pdo->prepare("SELECT * FROM $tableName WHERE $sql");
-
-		foreach ($where as $key => $item) {
-			$statement->bindValue(":$key", $item);
-		}
-
-		$statement->execute();
-
-		return $statement->fetchObject(static::class);
-	}
-
-	public function findAll($orderBy = '')
-	{
-		$tableName = static::tableName();
-      $statement = Application::$app->database->pdo->prepare("SELECT * FROM $tableName");
-
-		if ($orderBy !== '') {
-      $statement = Application::$app->database->pdo->prepare("SELECT * FROM $tableName ORDER BY $orderBy");
-    }
-
-		$statement->execute();
-
-		return $statement->fetchAll(PDO::FETCH_CLASS, static::class);
+    return $result;
   }
 }

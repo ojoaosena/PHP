@@ -45,7 +45,7 @@ class User extends Model
 
     public function profile(): array
     {
-      return ['Administrator', 'Usuário'];
+      return ['Administrador', 'Usuário'];
     }
 
     public function labels(): array
