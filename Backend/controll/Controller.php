@@ -21,7 +21,12 @@ class Controller
 
   public function loginP()
   {
-    
+    $data = json_decode(file_get_contents('php://input'), TRUE);
+    $user = $this->user->findOne(['login' => $data['login']]);
+    if ($user) {
+      return json_encode(password_verify($data['password'], $user->{'password'}));
+    }
+    return json_encode('E-mail não cadastrado');
   }
 
   public function newUserG()

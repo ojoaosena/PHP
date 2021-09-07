@@ -22,7 +22,24 @@ class Controller
 
   public function loginP()
   {
-    
+    $this->user->loadData(Application::$app->request->body());
+    if ($this->user->validate()) {
+      $result = json_decode($this->user->json($this->host), TRUE);
+
+      if (!is_bool($result)) {
+        Application::$app->session->setMessage('danger', $result);
+        return Application::$app->response->redirect('/');
+      }
+
+      if ($result) {
+        Application::$app->session->setMessage('success', 'Usuário logado');
+        return Application::$app->response->redirect('/');
+      }
+
+      Application::$app->session->setMessage('danger', 'Senha incorreta');
+      return Application::$app->response->redirect('/');
+    }
+    return Application::$app->view->render('login', 'main', ['model' => $this->user]);
   }
 
   public function newUserG()

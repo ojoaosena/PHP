@@ -34,7 +34,7 @@ class User extends Model
       return [
         'login' => [self::RULE_REQUIRED, self::RULE_EMAIL],
         'password' => [self::RULE_REQUIRED],
-        'profile' => [self::RULE_REQUIRED]
+        'profile' => [self::RULE_UNIQUE]
       ];
     }
 

@@ -56,7 +56,7 @@ abstract class Model
       self::RULE_MIN => 'Este campo deve conter ao menos {min} caracteres',
       self::RULE_MAX => 'Este campo deve conter o máximo de {max} caracteres',
       self::RULE_MATCH => 'Este campo deve ser igual a {match}',
-      self::RULE_UNIQUE => 'Este {field} já existe'
+      self::RULE_UNIQUE => 'Selecione uma opção válida'
     ];
   }
 
@@ -109,18 +109,8 @@ abstract class Model
           $this->ruleError($attribute, self::RULE_MATCH, $rule);
         }
 
-        if ($ruleName === self::RULE_UNIQUE) {
-          $className = $rule['class'];
-          $uniqueAttr = $rule['attribute'] ?? $attribute;
-          $tableName = $className::tableName();
-          $statement = Application::$app->database->pdo->prepare("SELECT * FROM $tableName WHERE $uniqueAttr = :attr;");
-          $statement->bindValue(":attr", $value);
-          $statement->execute();
-          $record = $statement->fetchObject();
-
-          if ($record) {
-            $this->ruleError($attribute, self::RULE_UNIQUE, ['field' => $this->label($attribute)]);
-          }
+        if ($ruleName === self::RULE_UNIQUE && !in_array($value, $this->$attribute(), TRUE)) {
+          $this->ruleError($attribute, self::RULE_UNIQUE, $rule);
         }
       }
     }
