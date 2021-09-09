@@ -15,5 +15,7 @@ $app->router->post('/', [Controller::class, 'loginP']);
 $app->router->get('/newuser', [Controller::class, 'newUserG']);
 $app->router->post('/newuser', [Controller::class, 'newUserP']);
 
+$app->router->get('/newguest', [Controller::class, 'newGuestG']);
+
 $app->run();
 ?>

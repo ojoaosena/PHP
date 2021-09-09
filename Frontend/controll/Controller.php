@@ -60,5 +60,10 @@ class Controller
     }
     return Application::$app->view->render('newUser', 'main', ['model' => $this->user]);
   }
+
+  public function newGuestG()
+  {
+    return Application::$app->view->render('newGuest', 'main', ['model' => $this->user]);
+  }
 }
 ?>
