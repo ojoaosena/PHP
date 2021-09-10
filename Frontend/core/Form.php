@@ -30,7 +30,7 @@ class Form
   public function select(Model $model, string $attribute, string $value = ''): string
   {
     return sprintf('
-      <div class="m-3">
+      <div class="mb-3">
         <select name="%s" class="form-select %s">
           %s
         </select>

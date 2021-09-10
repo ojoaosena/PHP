@@ -21,7 +21,7 @@ class Controller
 
   public function loginG()
   {
-    return Application::$app->view->render('login', 'main', ['model' => $this->user]);
+    return Application::$app->view->render('login', 'off', ['model' => $this->user]);
   }
 
   public function loginP()

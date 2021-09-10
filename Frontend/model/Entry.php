@@ -7,7 +7,6 @@ class Entry extends Model
 {
   public string $input = '';
   public string $output = '';
-  public string $brand = '';
   public string $model = '';
   public string $plate = '';
   public string $section = '';
@@ -24,7 +23,6 @@ class Entry extends Model
     return [
       'input' => [self::RULE_REQUIRED],
       'output' => [self::RULE_REQUIRED],
-      'brand' => [self::RULE_REQUIRED],
       'model' => [self::RULE_REQUIRED],
       'plate' => [self::RULE_REQUIRED],
       'section' => [self::RULE_REQUIRED],
@@ -35,7 +33,7 @@ class Entry extends Model
 
   public function attributes(): array
   {
-    return ['input', 'output', 'brand', 'model', 'plate', 'section', 'responsible', 'observation'];
+    return ['input', 'output', 'model', 'plate', 'section', 'responsible', 'observation'];
   }
 
   public function labels(): array
@@ -43,7 +41,6 @@ class Entry extends Model
     return [
       'input' => 'Entrada',
       'output' => 'Saída',
-      'brand' => 'Marca',
       'model' => 'Modelo',
       'plate' => 'Placa',
       'section' => 'Setor',
