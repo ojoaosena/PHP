@@ -67,16 +67,15 @@ class Form
   public function textArea(Model $model, string $attribute, string $value = ''): string
   {
     return sprintf('
-      <div class="form-group">
-        <label>%s</label>
-        <textarea name="%s" class="form-control %s">%s</textarea>
+      <div class="mb-3">
+        <textarea name="%s" placeholder="%s" class="form-control %s">%s</textarea>
         <div class="invalid-feedback">
           %s
         </div>
       </div>
     ',
-      $model->label($attribute),
       $attribute,
+      $model->label($attribute),
       $model->hasError($attribute) ? 'is-invalid' : '',
       $value,
       $model->firstError($attribute)

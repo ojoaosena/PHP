@@ -1,5 +1,5 @@
 <?php use app\core\Application; ?>
-<h3 class="mb-3">New User</h3>
+<h3 class="mb-3">Novo usuário</h3>
 <?= Application::$app->form->begin('post'); ?>
 <?= Application::$app->form->input($model, 'login', 'text'); ?>
 <?= Application::$app->form->input($model, 'password', 'password'); ?>

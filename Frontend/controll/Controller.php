@@ -2,17 +2,21 @@
 namespace app\controll;
 
 use app\core\Application;
-use app\model\User;
+use app\model\{Entry, User, Visitor};
 
 class Controller
 {
   private $host = 'http://localhost:8080';
 
+  private Entry $entry;
   private User $user;
+  private Visitor $visitor;
 
   public function __construct()
   {
+    $this->entry = new Entry();
     $this->user = new User();
+    $this->visitor = new Visitor();
   }
 
   public function loginG()
@@ -61,9 +65,14 @@ class Controller
     return Application::$app->view->render('newUser', 'main', ['model' => $this->user]);
   }
 
-  public function newGuestG()
+  public function newVisitorG()
   {
-    return Application::$app->view->render('newGuest', 'main', ['model' => $this->user]);
+    return Application::$app->view->render('newVisitor', 'main', ['model' => $this->visitor]);
+  }
+
+  public function newEntryG()
+  {
+    return Application::$app->view->render('newEntry', 'main', ['model' => $this->entry]);
   }
 }
 ?>
