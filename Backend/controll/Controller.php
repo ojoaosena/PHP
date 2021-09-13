@@ -29,6 +29,19 @@ class Controller
     return json_encode('E-mail não cadastrado');
   }
 
+  public function userG()
+  {
+    $users = $this->user->findAll();
+    foreach ($users as $user) {
+      foreach ($user as $key => $value) {
+        if (\DateTime::createFromFormat('Y-m-d H:i:s.u', $value)) {
+          $user->{$key} = strftime("%d-%m-%y %T",strtotime($value));
+        }
+      }
+    }
+    return json_encode($users);
+  }
+
   public function newUserG()
   {
     

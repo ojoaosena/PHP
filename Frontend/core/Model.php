@@ -145,4 +145,24 @@ abstract class Model
 
     return $result;
   }
+
+  public function jsonG(string $url, string $token = '')
+  {
+    $ch = curl_init($url);
+
+    $header = [
+      'Content-Type: application/json',
+      $token
+    ];
+
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+
+    $result = curl_exec($ch);
+
+    curl_close($ch);
+
+    return $result;
+  }
 }

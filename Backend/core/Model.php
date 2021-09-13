@@ -85,7 +85,7 @@ abstract class Model
 	public function findAll($orderBy = '')
 	{
 		$tableName = static::tableName();
-      $statement = Application::$app->database->pdo->prepare("SELECT * FROM $tableName");
+    $statement = Application::$app->database->pdo->prepare("SELECT * FROM $tableName");
 
 		if ($orderBy !== '') {
       $statement = Application::$app->database->pdo->prepare("SELECT * FROM $tableName ORDER BY $orderBy");

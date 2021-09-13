@@ -11,7 +11,7 @@ class User extends Model
   public string $login = '';
   public string $password = '';
   public string $profile = '';
-  public int $status = self::INACTIVE;        
+  public int $status = self::INACTIVE;
 
   public static function tableName(): string
   {
@@ -29,7 +29,7 @@ class User extends Model
 
   public function attributes(): array
   {
-    return ['login', 'password', 'profile', 'status'];
+    return ['id', 'login', 'password', 'profile', 'status', 'created_at'];
   }
 
   public function profile(): array
@@ -40,9 +40,12 @@ class User extends Model
   public function labels(): array
   {
     return [
+      'id' => 'ID',
       'login' => 'Login',
       'password' => 'Senha',
       'profile' => 'Perfil',
+      'status' => 'Status',
+      'created_at' => 'Inserido em'
     ];
   }
 }

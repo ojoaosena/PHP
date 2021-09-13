@@ -18,6 +18,8 @@ $app = new Application(dirname(__DIR__), $config);
 $app->router->get('/', [Controller::class, 'loginG']);
 $app->router->post('/', [Controller::class, 'loginP']);
 
+$app->router->get('/user', [Controller::class, 'userG']);
+
 $app->router->get('/newuser', [Controller::class, 'newUserG']);
 $app->router->post('/newuser', [Controller::class, 'newUserP']);
 

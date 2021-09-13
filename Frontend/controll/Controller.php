@@ -45,6 +45,12 @@ class Controller
     return Application::$app->view->render('login', 'main', ['model' => $this->user]);
   }
 
+  public function userG()
+  {
+    $result = json_decode($this->user->jsonG("$this->host/user"), TRUE);
+    return Application::$app->view->render('showUsers', 'main', ['model' => $this->user, 'users' => $result]);
+  }
+
   public function newUserG()
   {
     return Application::$app->view->render('newUser', 'main', ['model' => $this->user]);
