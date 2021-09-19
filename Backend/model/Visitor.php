@@ -6,13 +6,12 @@ use app\core\Model;
 class Visitor extends Model
 {
     public string $name = '';
-    public string $password = '';
-    public string $profile = '';
-    public int $status = self::INACTIVE;
+    public string $document = '';
+    public string $company = '';
 
     public static function tableName(): string
     {
-      return 'users';
+      return 'visitors';
     }
 
     public static function primaryKey(): string
@@ -20,19 +19,8 @@ class Visitor extends Model
       return 'id';
     }
 
-    public function save()
-    {
-      $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-      return parent::save();
-    }
-
     public function attributes(): array
     {
-      return ['login', 'password', 'profile', 'status'];
-    }
-
-    public function profile(): array
-    {
-      return ['Administrator', 'Usuário'];
+      return ['name', 'document', 'company'];
     }
 }
