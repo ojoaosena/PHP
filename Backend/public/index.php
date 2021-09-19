@@ -8,8 +8,8 @@ use app\controll\Controller;
 use app\core\Application;
 
 $config = [
-  'dsn' => 'pgsql:host=localhost;port=5432;dbname=portal',
-  'user' => 'administrator',
+  'dsn' => 'pgsql:host=localhost;port=5432;dbname=postgres',
+  'user' => 'postgres',
   'password' => 'asbesto'
 ];
 
