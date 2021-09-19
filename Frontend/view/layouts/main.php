@@ -30,7 +30,7 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="/visitor">Editar</a></li>
-                <li><a class="dropdown-item" href="/newentry">Entrada/Saída</a></li>
+                <li><a class="dropdown-item" href="/newentry">Entrada</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="/newvisitor">Cadastrar</a></li>
               </ul>
