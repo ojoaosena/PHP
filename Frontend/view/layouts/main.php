@@ -24,14 +24,26 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/newvisitor">Visitante</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Visitante
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/visitor">Editar</a></li>
+                <li><a class="dropdown-item" href="/newentry">Entrada/Saída</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/newvisitor">Cadastrar</a></li>
+              </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/newentry">Registro</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/newuser">Usuário</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Usuário
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/user">Editar</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/newuser">Cadastrar</a></li>
+              </ul>
             </li>
             <li class="nav-item">
               <a class="nav-link disabled" href="/" tabindex="-1" aria-disabled="true">Sair</a>
