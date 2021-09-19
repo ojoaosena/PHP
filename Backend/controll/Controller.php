@@ -42,6 +42,11 @@ class Controller
     return json_encode($users);
   }
 
+  public function visitorG()
+  {
+    # code...
+  }
+
   public function newUserG()
   {
     
