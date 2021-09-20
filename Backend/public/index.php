@@ -15,6 +15,12 @@ $config = [
 
 $app = new Application(dirname(__DIR__), $config);
 
+$tableLookup = $app->database->tableLookup();
+
+if ($tableLookup === 0) {
+	$app->database->mount();
+}
+
 $app->router->get('/', [Controller::class, 'loginG']);
 $app->router->post('/', [Controller::class, 'loginP']);
 
