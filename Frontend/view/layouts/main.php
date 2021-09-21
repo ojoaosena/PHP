@@ -58,7 +58,7 @@
       </div>
     <?php endif; ?>
   </header>
-  <main class="position-absolute top-50 start-50 translate-middle">
+  <main class="w-50 position-absolute top-50 start-50 translate-middle">
     {{content}}
   </main>
   <script src="bootstrap.min.js"></script>

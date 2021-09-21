@@ -5,22 +5,22 @@ use app\core\Model;
 
 class Visitor extends Model
 {
-    public string $name = '';
-    public string $document = '';
-    public string $company = '';
+  public string $name = '';
+  public string $document = '';
+  public string $company = '';
 
-    public static function tableName(): string
-    {
-      return 'visitors';
-    }
+  public static function tableName(): string
+  {
+    return 'visitors';
+  }
 
-    public static function primaryKey(): string
-    {
-      return 'id';
-    }
+  public static function primaryKey(): string
+  {
+    return 'code';
+  }
 
-    public function attributes(): array
-    {
-      return ['name', 'document', 'company'];
-    }
+  public function attributes(): array
+  {
+    return ['name', 'document', 'company'];
+  }
 }
