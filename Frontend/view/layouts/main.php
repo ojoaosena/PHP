@@ -1,6 +1,6 @@
 <?php use app\core\Application; ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 <head>
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="bootstrap.min.css">
@@ -9,8 +9,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
-<body>
-  <header class="w-100 position-absolute top-0 start-50 translate-middle-x">
+<body class="h-100 d-flex flex-column">
+  <header class="h-25 d-block">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
@@ -58,9 +58,12 @@
       </div>
     <?php endif; ?>
   </header>
-  <main class="w-50 position-absolute top-50 start-50 translate-middle">
+  <main class="h-50 d-flex justify-content-center align-items-center">
     {{content}}
   </main>
+  <footer class="h-25 d-flex justify-content-center align-items-end">
+    <p class="text-center text-muted">© 2021 Companhia Editora de Pernambuco</p>
+  </footer>
   <script src="bootstrap.min.js"></script>
 </body>
 </html>

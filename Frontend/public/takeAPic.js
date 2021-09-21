@@ -61,6 +61,13 @@ captureButton.addEventListener("click", event => {
   videoPlayer.srcObject.getVideoTracks().forEach(track => {
   });
 
+  let video = document.getElementById('video');
+  video.remove();
+
+  canvasElement.setAttribute("class", "m-3");
+  canvasElement.style.width = "320px";
+  canvasElement.style.height = "240px";
+
   let picture = canvasElement.toDataURL();
 
   fetch("./fonte/capturaimagem", {
