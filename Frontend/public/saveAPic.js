@@ -1,9 +1,12 @@
 document.addEventListener("click", function(event){
-  var classevisitante = event.target.className;
-  var salvar = "/fonte/salvaimagem";
-  console.log(classevisitante);
+  var tag = event.target.tagName;
 
-  if (classevisitante == "principalbotao") {
-      document.getElementById("salvar").href = salvar;
+  if (tag === "BUTTON") {
+    let picture = canvasElement.toDataURL();
+
+    fetch("/newvisitor", {
+      method: "post",
+      body: JSON.stringify({ data: picture })
+    })
   }
 });

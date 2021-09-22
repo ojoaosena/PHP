@@ -19,6 +19,7 @@ $app->router->get('/newuser', [Controller::class, 'newUserG']);
 $app->router->post('/newuser', [Controller::class, 'newUserP']);
 
 $app->router->get('/newvisitor', [Controller::class, 'newVisitorG']);
+$app->router->post('/newvisitor', [Controller::class, 'newVisitorP']);
 
 $app->router->get('/newentry', [Controller::class, 'newEntryG']);
 

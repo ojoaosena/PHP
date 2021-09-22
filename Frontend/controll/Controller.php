@@ -76,6 +76,11 @@ class Controller
     return Application::$app->view->render('newVisitor', 'main', ['model' => $this->visitor]);
   }
 
+  public function newVisitorP()
+  {
+    var_dump(dirname(__DIR__));
+  }
+
   public function newEntryG()
   {
     return Application::$app->view->render('newEntry', 'main', ['model' => $this->entry]);

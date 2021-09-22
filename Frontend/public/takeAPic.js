@@ -1,6 +1,6 @@
 const videoPlayer = document.querySelector("#player");
 const canvasElement = document.querySelector("#canvas");
-const captureButton = document.querySelector("#capture-btn");
+const capture = document.querySelector("#capture");
 const imagePicker = document.querySelector("#image-picker");
 const imagePickerArea = document.querySelector("#pick-image");
 const newImages = document.querySelector("#newImages");
@@ -53,7 +53,7 @@ const startMedia = () => {
     });
 };
 
-captureButton.addEventListener("click", event => {
+capture.addEventListener("click", event => {
   canvasElement.style.display = "block";
   const context = canvasElement.getContext("2d");
   context.drawImage(videoPlayer, 0, 0, canvas.width, canvas.height);
@@ -61,16 +61,20 @@ captureButton.addEventListener("click", event => {
   videoPlayer.srcObject.getVideoTracks().forEach(track => {
   });
 
-  let video = document.getElementById('video');
-  video.remove();
-
-  canvasElement.setAttribute("class", "m-3");
-  canvasElement.style.width = "320px";
-  canvasElement.style.height = "240px";
+  let video = document.getElementById("video");
+  if (video.getAttribute("class") === "m-3") {
+    video.setAttribute("class", "d-none");
+    canvasElement.setAttribute("class", "m-3 border rounded border-2 border-dark");
+    canvasElement.style.width = "320px";
+    canvasElement.style.height = "240px";
+  } else {
+    video.setAttribute("class", "m-3");
+    canvasElement.setAttribute("class", "d-none");
+  }  
 
   let picture = canvasElement.toDataURL();
 
-  fetch("./fonte/capturaimagem", {
+  fetch("/newvisitor", {
     method: "post",
     body: JSON.stringify({ data: picture })
   })
