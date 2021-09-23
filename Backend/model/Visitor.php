@@ -5,6 +5,7 @@ use app\core\Model;
 
 class Visitor extends Model
 {
+  public string $image = '';
   public string $name = '';
   public string $document = '';
   public string $company = '';
@@ -21,6 +22,6 @@ class Visitor extends Model
 
   public function attributes(): array
   {
-    return ['name', 'document', 'company'];
+    return ['image', 'name', 'document', 'company'];
   }
 }

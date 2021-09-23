@@ -78,7 +78,15 @@ class Controller
 
   public function newVisitorP()
   {
-    var_dump(dirname(__DIR__));
+    if (empty($_POST)) {
+      return Application::$app->camera->takePicture();
+    }
+    
+    $image = Application::$app->camera->savePicture();
+
+    $_POST['image'] = $image;
+
+    var_dump($_POST);
   }
 
   public function newEntryG()

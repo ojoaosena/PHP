@@ -6,6 +6,7 @@ class Application
 	public static string $ROOT_DIR;
 
 	public static Application $app;
+  public Camera $camera;
 	public Form $form;
   public Request $request;
 	public Response $response;
@@ -18,6 +19,7 @@ class Application
 		self::$ROOT_DIR = $rootPath;
 		self::$app = $this;
 
+    $this->camera = new Camera();
 		$this->form = new Form();
 		$this->request = new Request();
 		$this->response = new Response();

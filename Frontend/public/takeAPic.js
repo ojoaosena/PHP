@@ -67,17 +67,17 @@ capture.addEventListener("click", event => {
     canvasElement.setAttribute("class", "m-3 border rounded border-2 border-dark");
     canvasElement.style.width = "320px";
     canvasElement.style.height = "240px";
+
+    let picture = canvasElement.toDataURL();
+
+    fetch("/newvisitor", {
+      method: "post",
+      body: JSON.stringify({ data: picture })
+    })
   } else {
     video.setAttribute("class", "m-3");
     canvasElement.setAttribute("class", "d-none");
   }  
-
-  let picture = canvasElement.toDataURL();
-
-  fetch("/newvisitor", {
-    method: "post",
-    body: JSON.stringify({ data: picture })
-  })
 });
 
 window.addEventListener("load", event => startMedia());

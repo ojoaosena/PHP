@@ -45,6 +45,7 @@ class Database
   {
     $sql = "CREATE TABLE IF NOT EXISTS visitors (
 			code SERIAL PRIMARY KEY,
+      image VARCHAR(128) NOT NULL,
 			name VARCHAR(128) NOT NULL,
 			document VARCHAR(64) NOT NULL,
 			company VARCHAR(64) NOT NULL,
