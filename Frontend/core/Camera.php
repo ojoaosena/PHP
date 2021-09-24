@@ -52,18 +52,16 @@ class Camera
     exit(json_encode(['success' => true, 'path' => "$folder$filename"]));
   }
 
-  public function savePicture()
+  public function savePicture(string $image)
   {
     $path = dirname(__DIR__) . '/public/';
     $oldFile = $path . 'image.png';
     $newPath = $path . 'images/';
-    $file = date('Y-m-d H:i:s') . '.png';
-    $newFile = $newPath . $file;
+    $newFile = $newPath . $image;
     copy($oldFile, $newFile);
     if (file_exists($oldFile)) {
       unlink($oldFile);
     }
-    return '/images/' . $file;
   }
 }
 ?>

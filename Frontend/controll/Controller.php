@@ -73,6 +73,7 @@ class Controller
 
   public function newVisitorG()
   {
+    unlink('image.png');
     return Application::$app->view->render('newVisitor', 'main', ['model' => $this->visitor]);
   }
 
@@ -81,12 +82,24 @@ class Controller
     if (empty($_POST)) {
       return Application::$app->camera->takePicture();
     }
-    
-    $image = Application::$app->camera->savePicture();
 
-    $_POST['image'] = $image;
+    if ($this->visitor->loadData(Application::$app->request->body())) {
+      Application::$app->camera->savePicture($_POST['image']);
+      $result = json_decode($this->visitor->json("$this->host/newvisitor"), TRUE);
 
-    var_dump($_POST);
+      if (is_bool($result)) {
+        Application::$app->session->setMessage('success', 'Usuário cadastrado');
+        return Application::$app->response->redirect('/newvisitor');
+      }
+      Application::$app->session->setMessage('danger', $result);
+      return Application::$app->response->redirect('/newvisitor');
+    }
+    if(!in_array('image.png', scandir(dirname(__DIR__).'/public/'))) {
+      Application::$app->session->setMessage('warning', 'Capture a imagem');
+      return Application::$app->response->redirect('/newvisitor');
+    }
+    unlink('image.png');
+    return Application::$app->view->render('newVisitor', 'main', ['model' => $this->visitor]);
   }
 
   public function newEntryG()

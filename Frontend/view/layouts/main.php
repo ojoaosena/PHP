@@ -53,7 +53,7 @@
       </div>
     </nav>
     <?php if (Application::$app->session->status() && Application::$app->session->text()): ?>
-      <div class="alert alert-<?= Application::$app->session->status() ?>">
+      <div class="w-25 m-auto d-flex justify-content-center alert alert-<?= Application::$app->session->status() ?>">
         <?= Application::$app->session->text() ?>
       </div>
     <?php endif; ?>

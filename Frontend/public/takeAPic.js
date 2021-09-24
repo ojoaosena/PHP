@@ -1,9 +1,8 @@
 const videoPlayer = document.querySelector("#player");
 const canvasElement = document.querySelector("#canvas");
 const capture = document.querySelector("#capture");
-const imagePicker = document.querySelector("#image-picker");
-const imagePickerArea = document.querySelector("#pick-image");
-const newImages = document.querySelector("#newImages");
+const post = document.querySelector("#post");
+const card = document.querySelector("#card");
 
 const width = 320;
 const height = 240;
@@ -63,6 +62,8 @@ capture.addEventListener("click", event => {
 
   let video = document.getElementById("video");
   if (video.getAttribute("class") === "m-3") {
+    capture.innerText = "Cancelar";
+    capture.setAttribute("class", "btn btn-outline-danger");
     video.setAttribute("class", "d-none");
     canvasElement.setAttribute("class", "m-3 border rounded border-2 border-dark");
     canvasElement.style.width = "320px";
@@ -77,7 +78,17 @@ capture.addEventListener("click", event => {
   } else {
     video.setAttribute("class", "m-3");
     canvasElement.setAttribute("class", "d-none");
-  }  
+    capture.innerText = "Capturar";
+    capture.setAttribute("class", "btn btn-danger");
+  }
+});
+
+post.addEventListener("click", event => {
+  let image = document.createElement("input");
+  image.type = 'text';
+  image.name = 'image';
+  image.value = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '') + '.png';
+  card.appendChild(image);
 });
 
 window.addEventListener("load", event => startMedia());
