@@ -31,14 +31,18 @@ class Controller
 
   public function userG()
   {
-    $users = $this->user->findAll();
-    foreach ($users as $user) {
-      foreach ($user as $key => $value) {
-        if (\DateTime::createFromFormat('Y-m-d H:i:s.u', $value)) {
-          $user->{$key} = strftime("%d-%m-%y %T",strtotime($value));
+    if (empty($_GET['login'])) {
+      $users = $this->user->findAll();
+      foreach ($users as $user) {
+        foreach ($user as $key => $value) {
+          if (\DateTime::createFromFormat('Y-m-d H:i:s.u', $value)) {
+            $user->{$key} = strftime("%d-%m-%y %T",strtotime($value));
+          }
         }
       }
+      return json_encode($users);
     }
+    $users = $this->user->findOne(['login' => $_GET['login']]);
     return json_encode($users);
   }
 

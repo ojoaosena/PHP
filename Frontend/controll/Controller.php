@@ -47,8 +47,12 @@ class Controller
 
   public function userG()
   {
-    $result = json_decode($this->user->jsonG("$this->host/user"), TRUE);
-    return Application::$app->view->render('showUsers', 'main', ['model' => $this->user, 'users' => $result]);
+    if (empty($_GET['login'])) {
+      $result = json_decode($this->user->jsonG("$this->host/user"), TRUE);
+      return Application::$app->view->render('showUsers', 'main', ['model' => $this->user, 'users' => $result]);
+    }
+    $result = json_decode($this->user->jsonG($this->host. '/user?login=' . $_GET['login']), TRUE);
+    return Application::$app->view->render('newUser', 'main', ['model' => $this->user, 'user' => $result]);
   }
 
   public function newUserG()
@@ -88,7 +92,7 @@ class Controller
       $result = json_decode($this->visitor->json("$this->host/newvisitor"), TRUE);
 
       if (is_bool($result)) {
-        Application::$app->session->setMessage('success', 'Usuário cadastrado');
+        Application::$app->session->setMessage('success', 'Visitante cadastrado');
         return Application::$app->response->redirect('/newvisitor');
       }
       Application::$app->session->setMessage('danger', $result);

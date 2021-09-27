@@ -29,7 +29,7 @@ class User extends Model
 
   public function attributes(): array
   {
-    return ['id', 'login', 'password', 'profile', 'status', 'created_at'];
+    return ['login', 'password', 'profile', 'status', 'created_at'];
   }
 
   public function profile(): array
@@ -40,7 +40,6 @@ class User extends Model
   public function labels(): array
   {
     return [
-      'id' => 'ID',
       'login' => 'Login',
       'password' => 'Senha',
       'profile' => 'Perfil',
