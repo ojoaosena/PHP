@@ -24,24 +24,24 @@ class Database
 
   public function mount()
   {
-		$this->userTable();
-		$this->visitorTable();
-		$this->entryTable();
+		$this->user();
+		$this->visitor();
+		$this->entry();
   }
 
-  private function userTable()
+  private function user()
   {
     $sql = "CREATE TABLE IF NOT EXISTS users (
 			login VARCHAR(64) PRIMARY KEY,
 			password VARCHAR(128) NOT NULL,
 			profile VARCHAR(16) NOT NULL,
-			status BIT(1) NOT NULL,
+			status SMALLINT NOT NULL,
 			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 		);";
 		$this->pdo->exec($sql);
   }
 
-  private function visitorTable()
+  private function visitor()
   {
     $sql = "CREATE TABLE IF NOT EXISTS visitors (
 			code SERIAL PRIMARY KEY,
@@ -54,13 +54,13 @@ class Database
 		$this->pdo->exec($sql);
   }
 
-  private function entryTable()
+  private function entry()
   {
 		$sql = "CREATE TABLE IF NOT EXISTS entries (
 			id SERIAL PRIMARY KEY,
 			code INT REFERENCES visitors (code) NOT NULL,
-			entry TIMESTAMP NOT NULL,
-			out TIMESTAMP NOT NULL,
+			arrive TIMESTAMP NOT NULL,
+			departure TIMESTAMP NOT NULL,
 			model VARCHAR(16) NOT NULL,
 			plate VARCHAR(8) NOT NULL,
 			department VARCHAR(32) NOT NULL,

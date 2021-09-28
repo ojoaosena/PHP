@@ -11,7 +11,7 @@ class User extends Model
   public string $login = '';
   public string $password = '';
   public string $profile = '';
-  public int $status = self::INACTIVE;
+  public int $status = self::ACTIVE;
 
   public static function tableName(): string
   {

@@ -32,10 +32,9 @@ abstract class Model
 		return $statement->execute();
 	}
 
-	public function update($where)
+	public function update($attributes, $where)
 	{
 		$tableName = static::tableName();
-		$attributes = $this->attributes();
     $params = implode(", ", array_map(fn($attr) => "$attr = :$attr", $attributes));
     $attrib = array_keys($where);
 		$sql = implode("AND ", array_map(fn($attb) => "$attb = :$attb", $attrib));
@@ -82,12 +81,21 @@ abstract class Model
 		return $statement->fetchObject(static::class);
 	}
 
-	public function findAll($orderBy = '')
+	public function findAll($where = [], $orderBy = '')
 	{
 		$tableName = static::tableName();
     $statement = Application::$app->database->pdo->prepare("SELECT * FROM $tableName");
 
-		if ($orderBy !== '') {
+    if (!empty($where)) {
+      $attributes = array_keys($where);
+		  $sql = implode("AND ", array_map(fn($attr) => "$attr = :$attr", $attributes));
+      $statement = Application::$app->database->pdo->prepare("SELECT * FROM $tableName WHERE $sql");
+      foreach ($where as $key => $item) {
+        $statement->bindValue(":$key", $item);
+      }
+    }
+
+		if (!empty($orderBy)) {
       $statement = Application::$app->database->pdo->prepare("SELECT * FROM $tableName ORDER BY $orderBy");
     }
 

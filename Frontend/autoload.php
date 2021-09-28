@@ -16,7 +16,7 @@ spl_autoload_register(function ($class) {
     $relative_class = substr($class, $length);
 
     foreach($folders as $folder){      
-      $file=__DIR__.$folder.$relative_class.'.php';
+      $file = __DIR__.$folder.$relative_class.'.php';
 
       if(file_exists($file)){
         require_once $file;

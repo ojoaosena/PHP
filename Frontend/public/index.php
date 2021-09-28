@@ -4,21 +4,25 @@ date_default_timezone_set('America/Recife');
 
 require_once '../autoload.php';
 
-use app\controll\Controller;
+use app\controll\UserController;
 use app\core\Application;
 
 $app = new Application(dirname(__DIR__));
 
-$app->router->get('/', [Controller::class, 'loginG']);
-$app->router->post('/', [Controller::class, 'loginP']);
+$app->router->get('/', [UserController::class, 'getLogin']);
+$app->router->post('/', [UserController::class, 'postLogin']);
 
-$app->router->get('/user', [Controller::class, 'userG']);
-$app->router->post('/user', [Controller::class, 'userP']);
+$app->router->get('/showusers', [UserController::class, 'ShowUsers']);
 
-$app->router->get('/newuser', [Controller::class, 'newUserG']);
-$app->router->post('/newuser', [Controller::class, 'newUserP']);
+$app->router->get('/inactivateuser', [UserController::class, 'inactivateUser']);
 
-$app->router->get('/updateuser', [Controller::class, 'userG']);
+$app->router->get('/newuser', [UserController::class, 'getNewUser']);
+$app->router->post('/newuser', [UserController::class, 'postNewUser']);
+
+$app->router->get('/updateuser', [UserController::class, 'getUpdateUser']);
+$app->router->post('/updateuser', [UserController::class, 'postUpdateUser']);
+
+$app->router->post('/changepassword', [UserController::class, 'postUpdateUser']);
 
 $app->router->get('/newvisitor', [Controller::class, 'newVisitorG']);
 $app->router->post('/newvisitor', [Controller::class, 'newVisitorP']);

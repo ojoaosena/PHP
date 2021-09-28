@@ -29,21 +29,30 @@ class Controller
     return json_encode('E-mail não cadastrado');
   }
 
-  public function userG()
+  public function getUsers()
   {
-    if (empty($_GET['login'])) {
-      $users = $this->user->findAll();
-      foreach ($users as $user) {
-        foreach ($user as $key => $value) {
-          if (\DateTime::createFromFormat('Y-m-d H:i:s.u', $value)) {
-            $user->{$key} = strftime("%d-%m-%y %T",strtotime($value));
-          }
+    $users = $this->user->findAll(['status' => 1]);
+    foreach ($users as $user) {
+      foreach ($user as $key => $value) {
+        if (\DateTime::createFromFormat('Y-m-d H:i:s.u', $value)) {
+          $user->{$key} = strftime("%d-%m-%y %T",strtotime($value));
         }
       }
-      return json_encode($users);
     }
+    return json_encode($users);
+  }
+
+  public function getUpdateUser()
+  {
     $users = $this->user->findOne(['login' => $_GET['login']]);
     return json_encode($users);
+  }
+
+  public function inactivateUser()
+  {
+    $data = ['status' =>  0];
+    $this->user->loadData($data);
+    $this->user->update(['status'], ['login' => $_GET['login']]);
   }
 
   public function visitorG()

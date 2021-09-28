@@ -24,13 +24,17 @@ if ($tableLookup === 0) {
 $app->router->get('/', [Controller::class, 'loginG']);
 $app->router->post('/', [Controller::class, 'loginP']);
 
-$app->router->get('/user', [Controller::class, 'userG']);
+$app->router->get('/users', [Controller::class, 'getUsers']);
 
-$app->router->get('/visitor', [Controller::class, 'visitorG']);
-$app->router->post('/visitor', [Controller::class, 'visitorP']);
+$app->router->get('/updateuser', [Controller::class, 'getUpdateUser']);
+
+$app->router->get('/inactivateuser', [Controller::class, 'inactivateUser']);
 
 $app->router->get('/newuser', [Controller::class, 'newUserG']);
 $app->router->post('/newuser', [Controller::class, 'newUserP']);
+
+$app->router->get('/visitor', [Controller::class, 'visitorG']);
+$app->router->post('/visitor', [Controller::class, 'visitorP']);
 
 $app->run();
 ?>
