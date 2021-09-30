@@ -2,9 +2,9 @@
 namespace app\controll;
 
 use app\core\Application;
-use app\model\{Entry, User, Visitor};
+use app\model\Visitor;
 
-class ControllerA
+class VisitorController
 {
   private $host = 'http://localhost:8080';
 

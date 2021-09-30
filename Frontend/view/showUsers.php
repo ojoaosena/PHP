@@ -8,14 +8,18 @@
     <h3 class="mb-3">Usuários</h3>
     <div class="bg-dark text-light row text-center">
       <?php foreach ($model->attributes() as $value) : ?>
-        <div class="col-2 text-truncate"><?= $model->label($value); ?></div>
+        <?php if ($value !== 'confirm') : ?>
+          <div class="col-2 text-truncate"><?= $model->label($value); ?></div>
+        <?php endif; ?>
       <?php endforeach; ?>
         <div class="col-2 text-truncate">Ações</div>
     </div>
     <?php foreach ($users as $user) : ?>
       <div class="mb-3 row text-center">
         <?php foreach ($model->attributes() as $value) : ?>
-          <div class="col-2 text-truncate"><?= $user[$value]; ?></div>
+          <?php if ($value !== 'confirm') : ?>
+            <div class="col-2 text-truncate"><?= $user[$value]; ?></div>
+          <?php endif; ?>
         <?php endforeach; ?>
         <div class="col-2 text-truncate">
           <div class="d-flex justify-content-evenly">

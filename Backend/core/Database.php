@@ -35,7 +35,7 @@ class Database
 			login VARCHAR(64) PRIMARY KEY,
 			password VARCHAR(128) NOT NULL,
 			profile VARCHAR(16) NOT NULL,
-			status SMALLINT NOT NULL,
+			status BIT(1) NOT NULL,
 			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 		);";
 		$this->pdo->exec($sql);

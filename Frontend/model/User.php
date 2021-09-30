@@ -10,6 +10,7 @@ class User extends Model
 
   public string $login = '';
   public string $password = '';
+  public string $confirm = '';
   public string $profile = '';
   public int $status = self::ACTIVE;
 
@@ -23,13 +24,14 @@ class User extends Model
     return [
       'login' => [self::RULE_REQUIRED, self::RULE_EMAIL],
       'password' => [self::RULE_REQUIRED],
+      'confirm' => [self::RULE_REQUIRED, [self::RULE_MATCH, 'match' => 'password']],
       'profile' => [self::RULE_UNIQUE]
     ];
   }
 
   public function attributes(): array
   {
-    return ['login', 'password', 'profile', 'status', 'created_at'];
+    return ['login', 'password', 'confirm', 'profile', 'status', 'created_at'];
   }
 
   public function profile(): array
@@ -42,6 +44,7 @@ class User extends Model
     return [
       'login' => 'Login',
       'password' => 'Senha',
+      'confirm' => 'Confirme a senha',
       'profile' => 'Perfil',
       'status' => 'Status',
       'created_at' => 'Inserido em'

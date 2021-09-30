@@ -5,6 +5,7 @@
     <?= Application::$app->form->begin('post'); ?>
     <?= Application::$app->form->input($model, 'login', 'text'); ?>
     <?= Application::$app->form->input($model, 'password', 'password'); ?>
+    <?= Application::$app->form->input($model, 'confirm', 'password'); ?>
     <?= Application::$app->form->select($model, 'profile'); ?>
     <div class="text-center">
       <button type="submit" class="btn btn-danger">Salvar</button>
