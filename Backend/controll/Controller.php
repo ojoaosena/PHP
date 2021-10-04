@@ -42,17 +42,36 @@ class Controller
     return json_encode($users);
   }
 
-  public function getUpdateUser()
+  public function updateUser()
   {
-    $users = $this->user->findOne(['login' => $_GET['login']]);
-    return json_encode($users);
-  }
+    if ($_SERVER['PATH_INFO'] === '/profile')
+    {
+      $user = $this->user->findOne(['login' => $_GET['login']]);
+      if ($user->profile === 'Administrador')
+      {
+        $data = ['profile' =>  'Usuário'];
+      }
+      else
+      {
+        $data = ['profile' =>  'Administrador'];
+      }
+      $this->user->loadData($data);
+      $this->user->update(['profile'], ['login' => $_GET['login']]);
+    }
 
-  public function inactivateUser()
-  {
-    $data = ['status' =>  0];
-    $this->user->loadData($data);
-    $this->user->update(['status'], ['login' => $_GET['login']]);
+    if ($_SERVER['PATH_INFO'] === '/password')
+    {
+      $data = ['password' =>  password_hash('cepe'.date('Y'), PASSWORD_DEFAULT)];
+      $this->user->loadData($data);
+      $this->user->update(['password'], ['login' => $_GET['login']]);
+    }
+
+    if ($_SERVER['PATH_INFO'] === '/inactivate')
+    {
+      $data = ['status' =>  0];
+      $this->user->loadData($data);
+      $this->user->update(['status'], ['login' => $_GET['login']]);
+    }
   }
 
   public function visitorG()

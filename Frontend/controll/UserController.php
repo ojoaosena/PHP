@@ -72,20 +72,23 @@ class UserController
     return Application::$app->view->render('showUsers', 'main', ['model' => $this->user, 'users' => $result]);
   }
 
-  public function getUpdateUser()
+  public function updateUser()
   {
-    $result = json_decode($this->user->jsonG($this->host. '/updateuser?login=' . $_GET['login']), TRUE);
-    return Application::$app->view->render('updateUser', 'main', ['model' => $this->user, 'user' => $result]);
-  }
+    if ($_SERVER['PATH_INFO'] === '/profile')
+    {
+      $result = json_decode($this->user->jsonG($this->host. '/profile?login=' . $_GET['login']), TRUE);
+    }
 
-  public function postUpdateUser()
-  {
-    # code...
-  }
+    if ($_SERVER['PATH_INFO'] === '/password')
+    {
+      $result = json_decode($this->user->jsonG($this->host. '/password?login=' . $_GET['login']), TRUE);
+    }
 
-  public function inactivateUser()
-  {
-    $result = json_decode($this->user->jsonG($this->host. '/inactivateuser?login=' . $_GET['login']), TRUE);
+    if ($_SERVER['PATH_INFO'] === '/inactivate')
+    {
+      $result = json_decode($this->user->jsonG($this->host. '/inactivate?login=' . $_GET['login']), TRUE);
+    }
+    
     return Application::$app->response->redirect('/showusers');
   }
 }

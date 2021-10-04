@@ -9,6 +9,7 @@ class User extends Model
   private const ACTIVE = 1;
 
   public string $login = '';
+  public string $old = '';
   public string $password = '';
   public string $confirm = '';
   public string $profile = '';
@@ -23,6 +24,7 @@ class User extends Model
   {
     return [
       'login' => [self::RULE_REQUIRED, self::RULE_EMAIL],
+      'old' => [self::RULE_REQUIRED],
       'password' => [self::RULE_REQUIRED],
       'confirm' => [self::RULE_REQUIRED, [self::RULE_MATCH, 'match' => 'password']],
       'profile' => [self::RULE_UNIQUE]
@@ -31,7 +33,7 @@ class User extends Model
 
   public function attributes(): array
   {
-    return ['login', 'password', 'confirm', 'profile', 'status', 'created_at'];
+    return ['login', 'old', 'password', 'confirm', 'profile', 'status', 'created_at'];
   }
 
   public function profile(): array
@@ -43,6 +45,7 @@ class User extends Model
   {
     return [
       'login' => 'Login',
+      'old' => 'Senha atual',
       'password' => 'Senha',
       'confirm' => 'Confirme a senha',
       'profile' => 'Perfil',

@@ -41,9 +41,10 @@
                 Usuário
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="/user">Editar</a></li>
+                <li><a class="dropdown-item" href="/updateuser">Senha</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="/newuser">Cadastrar</a></li>
+                <li><a class="dropdown-item" href="/showusers">Listar</a></li>
               </ul>
             </li>
             <li class="nav-item">
@@ -63,7 +64,7 @@
     {{content}}
   </main>
   <footer class="h-25 d-flex justify-content-center align-items-end">
-    <p class="text-center text-muted">© 2021 Companhia Editora de Pernambuco</p>
+    <p class="text-center text-muted">© <?=date('Y')?> Companhia Editora de Pernambuco</p>
   </footer>
   <script src="bootstrap.min.js"></script>
   <script>feather.replace()</script>

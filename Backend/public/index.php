@@ -26,9 +26,9 @@ $app->router->post('/', [Controller::class, 'loginP']);
 
 $app->router->get('/users', [Controller::class, 'getUsers']);
 
-$app->router->get('/updateuser', [Controller::class, 'getUpdateUser']);
-
-$app->router->get('/inactivateuser', [Controller::class, 'inactivateUser']);
+$app->router->get('/profile', [Controller::class, 'updateUser']);
+$app->router->get('/password', [Controller::class, 'updateUser']);
+$app->router->get('/inactivate', [Controller::class, 'updateUser']);
 
 $app->router->get('/newuser', [Controller::class, 'newUserG']);
 $app->router->post('/newuser', [Controller::class, 'newUserP']);

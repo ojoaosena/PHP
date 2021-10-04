@@ -14,15 +14,12 @@ $app->router->post('/', [UserController::class, 'postLogin']);
 
 $app->router->get('/showusers', [UserController::class, 'ShowUsers']);
 
-$app->router->get('/inactivateuser', [UserController::class, 'inactivateUser']);
+$app->router->get('/profile', [UserController::class, 'updateUser']);
+$app->router->get('/password', [UserController::class, 'updateUser']);
+$app->router->get('/inactivate', [UserController::class, 'updateUser']);
 
 $app->router->get('/newuser', [UserController::class, 'getNewUser']);
 $app->router->post('/newuser', [UserController::class, 'postNewUser']);
-
-$app->router->get('/updateuser', [UserController::class, 'getUpdateUser']);
-$app->router->post('/updateuser', [UserController::class, 'postUpdateUser']);
-
-$app->router->post('/changepassword', [UserController::class, 'postUpdateUser']);
 
 $app->router->get('/newvisitor', [Controller::class, 'newVisitorG']);
 $app->router->post('/newvisitor', [Controller::class, 'newVisitorP']);
