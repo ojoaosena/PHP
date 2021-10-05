@@ -12,7 +12,10 @@ $app = new Application(dirname(__DIR__));
 $app->router->get('/', [UserController::class, 'getLogin']);
 $app->router->post('/', [UserController::class, 'postLogin']);
 
-$app->router->get('/showusers', [UserController::class, 'ShowUsers']);
+$app->router->get('/listusers', [UserController::class, 'listUsers']);
+
+$app->router->get('/updatepassword', [UserController::class, 'getPassword']);
+$app->router->post('/updatepassword', [UserController::class, 'postPassword']);
 
 $app->router->get('/profile', [UserController::class, 'updateUser']);
 $app->router->get('/password', [UserController::class, 'updateUser']);

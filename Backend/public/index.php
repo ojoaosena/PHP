@@ -4,7 +4,7 @@ date_default_timezone_set('America/Recife');
 
 require_once '../autoload.php';
 
-use app\controll\Controller;
+use app\controll\UserController;
 use app\core\Application;
 
 $config = [
@@ -21,20 +21,17 @@ if ($tableLookup === 0) {
 	$app->database->mount();
 }
 
-$app->router->get('/', [Controller::class, 'loginG']);
-$app->router->post('/', [Controller::class, 'loginP']);
+$app->router->post('/', [UserController::class, 'login']);
 
-$app->router->get('/users', [Controller::class, 'getUsers']);
+$app->router->post('/newuser', [UserController::class, 'newUserP']);
 
-$app->router->get('/profile', [Controller::class, 'updateUser']);
-$app->router->get('/password', [Controller::class, 'updateUser']);
-$app->router->get('/inactivate', [Controller::class, 'updateUser']);
+$app->router->get('/listusers', [UserController::class, 'listUsers']);
 
-$app->router->get('/newuser', [Controller::class, 'newUserG']);
-$app->router->post('/newuser', [Controller::class, 'newUserP']);
+$app->router->post('/updatepassword', [UserController::class, 'password']);
 
-$app->router->get('/visitor', [Controller::class, 'visitorG']);
-$app->router->post('/visitor', [Controller::class, 'visitorP']);
+$app->router->get('/profile', [UserController::class, 'updateUser']);
+$app->router->get('/password', [UserController::class, 'updateUser']);
+$app->router->get('/inactivate', [UserController::class, 'updateUser']);
 
 $app->run();
 ?>

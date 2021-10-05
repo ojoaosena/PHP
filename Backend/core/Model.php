@@ -86,6 +86,19 @@ abstract class Model
 		$tableName = static::tableName();
     $statement = Application::$app->database->pdo->prepare("SELECT * FROM $tableName");
 
+    if (!empty($where) && !empty($orderBy))
+    {
+      $attributes = array_keys($where);
+		  $sql = implode("AND ", array_map(fn($attr) => "$attr = :$attr", $attributes));
+      $statement = Application::$app->database->pdo->prepare("SELECT * FROM $tableName WHERE $sql ORDER BY $orderBy");
+      foreach ($where as $key => $item) {
+        $statement->bindValue(":$key", $item);
+      }
+      $statement->execute();
+
+		  return $statement->fetchAll(PDO::FETCH_CLASS, static::class);
+    }
+
     if (!empty($where)) {
       $attributes = array_keys($where);
 		  $sql = implode("AND ", array_map(fn($attr) => "$attr = :$attr", $attributes));
@@ -93,14 +106,16 @@ abstract class Model
       foreach ($where as $key => $item) {
         $statement->bindValue(":$key", $item);
       }
+      $statement->execute();
+
+		  return $statement->fetchAll(PDO::FETCH_CLASS, static::class);
     }
 
 		if (!empty($orderBy)) {
       $statement = Application::$app->database->pdo->prepare("SELECT * FROM $tableName ORDER BY $orderBy");
+      $statement->execute();
+
+		  return $statement->fetchAll(PDO::FETCH_CLASS, static::class);
     }
-
-		$statement->execute();
-
-		return $statement->fetchAll(PDO::FETCH_CLASS, static::class);
   }
 }

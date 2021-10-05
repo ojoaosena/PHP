@@ -66,10 +66,32 @@ class UserController
     return Application::$app->view->render('newUser', 'main', ['model' => $this->user]);
   }
 
-  public function showUsers()
+  public function getPassword()
   {
-    $result = json_decode($this->user->jsonG("$this->host/users"), TRUE);
-    return Application::$app->view->render('showUsers', 'main', ['model' => $this->user, 'users' => $result]);
+    return Application::$app->view->render('updatePassword', 'main', ['model' => $this->user]);
+  }
+
+  public function postPassword()
+  {
+    if ($this->user->loadData(Application::$app->request->body()))
+    {
+      $result = json_decode($this->user->json($this->host . '/updatepassword?login=' . $_SESSION['login']), TRUE);
+
+      if (is_bool($result))
+      {
+        Application::$app->session->setMessage('success', 'Senha atualizada');
+        return Application::$app->response->redirect('/updatepassword');
+      }
+      Application::$app->session->setMessage('danger', $result);
+      return Application::$app->response->redirect('/updatepassword');
+    }
+    return Application::$app->view->render('updatePassword', 'main', ['model' => $this->user]);
+  }
+
+  public function listUsers()
+  {
+    $result = json_decode($this->user->jsonG("$this->host/listusers"), TRUE);
+    return Application::$app->view->render('listUsers', 'main', ['model' => $this->user, 'users' => $result]);
   }
 
   public function updateUser()
@@ -77,19 +99,22 @@ class UserController
     if ($_SERVER['PATH_INFO'] === '/profile')
     {
       $result = json_decode($this->user->jsonG($this->host. '/profile?login=' . $_GET['login']), TRUE);
+      Application::$app->session->setMessage('success', 'Perfil de '. $_GET['login'] . ' alterado');
     }
 
     if ($_SERVER['PATH_INFO'] === '/password')
     {
       $result = json_decode($this->user->jsonG($this->host. '/password?login=' . $_GET['login']), TRUE);
+      Application::$app->session->setMessage('success', 'Senha de '. $_GET['login'] . ' resetada');
     }
 
     if ($_SERVER['PATH_INFO'] === '/inactivate')
     {
       $result = json_decode($this->user->jsonG($this->host. '/inactivate?login=' . $_GET['login']), TRUE);
+      Application::$app->session->setMessage('danger', 'Login ' . $_GET['login'] . ' desativado');
     }
     
-    return Application::$app->response->redirect('/showusers');
+    return Application::$app->response->redirect('/listusers');
   }
 }
 ?>

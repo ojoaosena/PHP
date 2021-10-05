@@ -23,7 +23,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -41,10 +41,10 @@
                 Usuário
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="/updateuser">Senha</a></li>
+                <li><a class="dropdown-item" href="/updatepassword">Senha</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="/newuser">Cadastrar</a></li>
-                <li><a class="dropdown-item" href="/showusers">Listar</a></li>
+                <li><a class="dropdown-item" href="/listusers">Listar</a></li>
               </ul>
             </li>
             <li class="nav-item">
