@@ -23,7 +23,7 @@ if ($tableLookup === 0) {
 
 $app->router->post('/', [UserController::class, 'login']);
 
-$app->router->post('/newuser', [UserController::class, 'newUserP']);
+$app->router->post('/newuser', [UserController::class, 'newUser']);
 
 $app->router->get('/listusers', [UserController::class, 'listUsers']);
 

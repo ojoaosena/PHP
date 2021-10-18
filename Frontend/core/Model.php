@@ -51,8 +51,12 @@ abstract class Model
   {
     $message = $this->errorMessages()[$rule] ?? '';
 
-    foreach ($params as $key => $value) {
-      $message = str_replace("{{$key}}", $value, $message);
+    if (!is_string($params))
+    {
+      foreach ($params as $key => $value)
+      {
+        $message = str_replace("{{$key}}", $value, $message);
+      }
     }
 
     $this->errors[$attribute][] = $message;
