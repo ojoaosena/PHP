@@ -34,6 +34,7 @@ class UserController
 
       if ($result)
       {
+        // Refazer com as informacoes de usuario em cache
         Application::$app->session->setMessage('success', 'Usuário logado');
         return Application::$app->response->redirect('/');
       }

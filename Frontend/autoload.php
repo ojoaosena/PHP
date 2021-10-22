@@ -6,16 +6,19 @@ spl_autoload_register(function ($class) {
   $length = strlen($root);
   $paths = glob("$root/*",GLOB_ONLYDIR);
 
-  foreach($paths as $path){
+  foreach($paths as $path)
+  {
     array_push($folders, substr($path, $length).'/');
     array_push($prefixes,'app'.substr($path,$length).'/');
   }
 
-  foreach($prefixes as $prefix){
+  foreach($prefixes as $prefix)
+  {
     $length = strlen($prefix);
     $relative_class = substr($class, $length);
 
-    foreach($folders as $folder){      
+    foreach($folders as $folder)
+    {      
       $file = __DIR__.$folder.$relative_class.'.php';
 
       if(file_exists($file)){

@@ -8,72 +8,39 @@ class VisitorController
 {
   private $host = 'http://localhost:8080';
 
-  private Entry $entry;
-  private User $user;
   private Visitor $visitor;
 
   public function __construct()
   {
-    $this->entry = new Entry();
-    $this->user = new User();
     $this->visitor = new Visitor();
   }
 
-  public function loginG()
+  public function getNewVisitor()
   {
-    return Application::$app->view->render('login', 'off', ['model' => $this->user]);
+    return Application::$app->view->render('newVisitor', 'main', ['model' => $this->visitor]);
   }
 
-  public function loginP()
+  public function postNewVisitor()
   {
-    if ($this->user->loadData(Application::$app->request->body()))
+    if ($this->visitor->loadData(Application::$app->request->body()))
     {
-      $result = json_decode($this->user->json($this->host), TRUE);
-
-      if (!is_bool($result))
-      {
-        Application::$app->session->setMessage('danger', $result);
-        return Application::$app->response->redirect('/');
-      }
-
-      if ($result)
-      {
-        Application::$app->session->setMessage('success', 'Usuário logado');
-        return Application::$app->response->redirect('/');
-      }
-
-      Application::$app->session->setMessage('danger', 'Senha incorreta');
-      return Application::$app->response->redirect('/');
-    }
-    return Application::$app->view->render('login', 'main', ['model' => $this->user]);
-  }
-
-  public function getNewUser()
-  {
-    return Application::$app->view->render('newUser', 'main', ['model' => $this->user]);
-  }
-
-  public function postNewUser()
-  {
-    if ($this->user->loadData(Application::$app->request->body()))
-    {
-      $result = json_decode($this->user->json("$this->host/newuser"), TRUE);
+      $result = json_decode($this->visitor->json("$this->host/newvisitor"), TRUE);
 
       if (is_bool($result))
       {
-        Application::$app->session->setMessage('success', 'Usuário cadastrado');
-        return Application::$app->response->redirect('/newuser');
+        Application::$app->session->setMessage('success', 'Visitante cadastrado');
+        return Application::$app->response->redirect('/newvisitor');
       }
       Application::$app->session->setMessage('danger', $result);
-      return Application::$app->response->redirect('/newuser');
+      return Application::$app->response->redirect('/newvisitor');
     }
-    return Application::$app->view->render('newUser', 'main', ['model' => $this->user]);
+    return Application::$app->view->render('newVisitor', 'main', ['model' => $this->visitor]);
   }
 
-  public function showUsers()
+  public function listVisitors()
   {
-    $result = json_decode($this->user->jsonG("$this->host/users"), TRUE);
-    return Application::$app->view->render('showUsers', 'main', ['model' => $this->user, 'users' => $result]);
+    $result = json_decode($this->visitor->jsonG("$this->host/listvisitors"), TRUE);
+    return Application::$app->view->render('listVisitors', 'main', ['model' => $this->visitor, 'visitors' => $result]);
   }
 
   public function getUpdateUser()
@@ -95,7 +62,11 @@ class VisitorController
 
   public function newVisitorG()
   {
-    unlink('image.png');
+    $image = 'image.png';
+    if (file_exists($image))
+    {
+      unlink($image);
+    }
     return Application::$app->view->render('newVisitor', 'main', ['model' => $this->visitor]);
   }
 
@@ -122,11 +93,6 @@ class VisitorController
     }
     unlink('image.png');
     return Application::$app->view->render('newVisitor', 'main', ['model' => $this->visitor]);
-  }
-
-  public function newEntryG()
-  {
-    return Application::$app->view->render('newEntry', 'main', ['model' => $this->entry]);
   }
 }
 ?>

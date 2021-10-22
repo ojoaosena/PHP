@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Portaria</title>
   <script src="feather.min.js"></script>
 </head>
 <body class="h-100 d-flex flex-column">
@@ -30,10 +30,8 @@
                 Visitante
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="/visitor">Editar</a></li>
-                <li><a class="dropdown-item" href="/newentry">Entrada</a></li>
-                <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="/newvisitor">Cadastrar</a></li>
+                <li><a class="dropdown-item" href="/listvisitors">Listar</a></li>
               </ul>
             </li>
             <li class="nav-item dropdown">
