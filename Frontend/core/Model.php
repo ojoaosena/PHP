@@ -140,14 +140,29 @@ abstract class Model
     ];
 
     curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-
+    
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 
-    $result = curl_exec($ch);
+    curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+      function($curl, $header) use (&$headers)
+      {
+        $len = strlen($header);
+        $header = explode(':', $header, 2);
+        if (count($header) < 2) // ignore invalid headers
+          return $len;
+
+        $headers[strtolower(trim($header[0]))][] = trim($header[1]);
+
+        return $len;
+      }
+    );
+
+    $data = curl_exec($ch);
 
     curl_close($ch);
 
-    return $result;
+    var_dump($headers);
+    exit;
   }
 
   public function jsonG(string $url, string $token = '')
@@ -160,6 +175,7 @@ abstract class Model
     ];
 
     curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+
 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 

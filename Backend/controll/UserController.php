@@ -18,8 +18,15 @@ class UserController
   {
     $data = json_decode(file_get_contents('php://input'), TRUE);
     $user = $this->user->findOne(['login' => $data['login']]);
-    if ($user) {
-      return json_encode(password_verify($data['password'], $user->{'password'}));
+    if ($user)
+    {
+      if (password_verify($data['password'], $user->{'password'}))
+      {
+        $jwt = $this->user->jwt(get_object_vars($user));
+        header("Authorization: Bearer $jwt");
+        return json_encode($user);
+      }
+      return json_encode('Senha incorreta');
     }
     return json_encode('E-mail não cadastrado');
   }

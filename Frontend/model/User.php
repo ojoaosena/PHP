@@ -14,6 +14,7 @@ class User extends Model
   public string $confirm = '';
   public string $profile = '';
   public int $status = self::ACTIVE;
+  public string $created_at = '';
 
   public static function tableName(): string
   {

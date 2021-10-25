@@ -6,7 +6,7 @@ use app\model\User;
 
 class UserController
 {
-  private $host = 'http://localhost:8080';
+  private $host = 'http://localhost:8080/';
 
   private User $user;
 
@@ -26,18 +26,19 @@ class UserController
     {
       $result = json_decode($this->user->json($this->host), TRUE);
 
-      if (!is_bool($result))
+      if (is_string($result))
       {
         Application::$app->session->setMessage('danger', $result);
         return Application::$app->response->redirect('/');
       }
 
-      if ($result)
-      {
-        // Refazer com as informacoes de usuario em cache
-        Application::$app->session->setMessage('success', 'Usuário logado');
-        return Application::$app->response->redirect('/');
-      }
+      // if ($result)
+      // {
+        echo "<pre>";
+        var_dump($result);
+        echo "</pre>";
+        exit;
+      // }
 
       Application::$app->session->setMessage('danger', 'Senha incorreta');
       return Application::$app->response->redirect('/');

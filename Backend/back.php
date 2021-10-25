@@ -8,5 +8,6 @@ foreach (getallheaders() as $key => $value) {
   error_log($key);
   error_log($value);
 }
+header("Authorization: Bearer");
 exit;
 ?>

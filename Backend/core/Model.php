@@ -120,7 +120,7 @@ abstract class Model
     }
   }
 
-  public function json(string $url, string $token = '')
+  public function json(string $url)
   {
     $data = [];
 
@@ -133,6 +133,8 @@ abstract class Model
     $payload = json_encode($data);
 
     curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+
+    $token = $this->jwt($payload, 'testando');
 
     $header = [
       'Content-Type: application/json',
@@ -150,7 +152,7 @@ abstract class Model
     return $result;
   }
 
-  public function jsonG(string $url, string $token = '')
+  public function jsonG(string $url)
   {
     $ch = curl_init($url);
 
@@ -168,5 +170,41 @@ abstract class Model
     curl_close($ch);
 
     return $result;
+  }
+
+  function base64url_encode($data)
+  {
+    // First of all you should encode $data to Base64 string
+    $b64 = base64_encode($data);
+
+    // Make sure you get a valid result, otherwise, return FALSE, as the base64_encode() function do
+    if ($b64 === false) {
+      return false;
+    }
+
+    // Convert Base64 to Base64URL by replacing “+” with “-” and “/” with “_”
+    $url = strtr($b64, '+/', '-_');
+
+    // Remove padding character from the end of line and return the Base64URL result
+    return rtrim($url, '=');
+  }
+
+  public function jwt(array $payload)
+  {
+    $header = [
+      'alg' => 'HS256',
+      'typ' => 'JWT'
+    ];
+
+    $header = json_encode($header);
+    $header = $this->base64url_encode($header);
+    
+    $payload = json_encode($payload);
+    $payload = $this->base64url_encode($payload);
+    
+    $signature = hash_hmac('sha256',"$header.$payload",'thesecret',TRUE);
+    $signature = $this->base64url_encode($signature);
+    
+    return "$header.$payload.$signature";
   }
 }
