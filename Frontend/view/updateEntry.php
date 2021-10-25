@@ -21,10 +21,10 @@
       </div>
     </div>
     <div class="w-100">
-      <?= Application::$app->form->textArea($model, 'observation'); ?>
+      <?= Application::$app->form->textArea($model, 'observation', $entry['observation']); ?>
     </div>
     <div class="d-flex justify-content-around text-center">
-      <a class="w-25 btn btn-danger" href="/listvisitors">Voltar</a>
+      <a class="w-25 btn btn-danger" href="/listentries">Voltar</a>
       <button type="submit" id="post" class="w-25 btn btn-danger">Salvar</button>
     </div>
     <?= Application::$app->form->end(); ?>

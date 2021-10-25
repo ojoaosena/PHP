@@ -51,5 +51,21 @@ class EntryController
     $entry = $this->entry->findOne(['id' => $_GET['id']]);
     return json_encode($entry);
   }
+
+  public function postUpdateEntry()
+  {
+    $data = json_decode(file_get_contents('php://input'), TRUE);
+    unset($data['visitor_name']);
+    $data['arrive'] = str_replace('T', ' ', $data['arrive']);
+    $data['departure'] = str_replace('T', ' ', $data['departure']);
+    $this->entry->loadData($data);
+    return json_encode($this->entry->update(array_keys($data), ['id' => $_GET['id']]));
+  }
+  
+  public function viewEntry()
+  {
+    $entry = $this->entry->findOne(['id' => $_GET['id']]);
+    return json_encode($entry);
+  }
 }
 ?>

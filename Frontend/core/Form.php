@@ -8,11 +8,11 @@ class Form
     return sprintf('<form method="%s">', $method);
   }
     
-  public function input(Model $model, string $attribute, string $type, ?string $value = ''): string
+  public function input(Model $model, string $attribute, string $type, ?string $value = '', ?string $disabled = ''): string
   {
     return sprintf('
       <div class="mb-3">
-        <input type="%s" name="%s" placeholder="%s" value="%s" class="form-control %s">
+        <input type="%s" name="%s" placeholder="%s" value="%s" class="form-control %s" %s>
         <div class="invalid-feedback">
           %s
         </div>
@@ -23,6 +23,7 @@ class Form
       $model->label($attribute),
       $value,
       $model->hasError($attribute) ? 'is-invalid' : '',
+      $disabled,
       $model->firstError($attribute)
     );
   }
@@ -64,11 +65,11 @@ class Form
     return $elements;
   }
     
-  public function textArea(Model $model, string $attribute, string $value = ''): string
+  public function textArea(Model $model, string $attribute, string $value = '', ?string $disabled = ''): string
   {
     return sprintf('
       <div class="mb-3">
-        <textarea name="%s" placeholder="%s" class="form-control %s">%s</textarea>
+        <textarea name="%s" placeholder="%s" class="form-control %s" %s>%s</textarea>
         <div class="invalid-feedback">
           %s
         </div>
@@ -77,6 +78,7 @@ class Form
       $attribute,
       $model->label($attribute),
       $model->hasError($attribute) ? 'is-invalid' : '',
+      $disabled,
       $value,
       $model->firstError($attribute)
     );

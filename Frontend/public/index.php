@@ -42,5 +42,7 @@ $app->router->get('/listentries', [EntryController::class, 'listEntries']);
 $app->router->get('/updateentry', [EntryController::class, 'getUpdateEntry']);
 $app->router->post('/updateentry', [EntryController::class, 'postUpdateEntry']);
 
+$app->router->get('/viewentry', [EntryController::class, 'viewEntry']);
+
 $app->run();
 ?>

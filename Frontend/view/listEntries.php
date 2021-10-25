@@ -24,7 +24,11 @@
         <?php endforeach ?>
         <div class="col-3 text-truncate">
           <div class="d-flex justify-content-evenly">
-            <a href="/updateentry?id=<?=$entry['id']?>" class="link-dark"><i data-feather="clipboard" class="align-top"></i></a>
+            <?php if (empty($entry['departure'])) : ?>
+              <a href="/updateentry?id=<?=$entry['id']?>" class="link-dark"><i data-feather="clipboard" class="align-top"></i></a>
+            <?php else : ?>
+              <a href="/viewentry?id=<?=$entry['id']?>" class="link-dark"><i data-feather="book" class="align-top"></i></a>
+            <?php endif; ?>
           </div>
         </div>
       </div>

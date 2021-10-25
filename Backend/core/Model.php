@@ -119,4 +119,54 @@ abstract class Model
 		  return $statement->fetchAll(PDO::FETCH_CLASS, static::class);
     }
   }
+
+  public function json(string $url, string $token = '')
+  {
+    $data = [];
+
+    $ch = curl_init($url);
+
+    foreach ($this->attributes() as $attribute) {
+      $data[$attribute] = $this->{$attribute};
+		}
+
+    $payload = json_encode($data);
+
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+
+    $header = [
+      'Content-Type: application/json',
+      $token
+    ];
+
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+
+    $result = curl_exec($ch);
+
+    curl_close($ch);
+
+    return $result;
+  }
+
+  public function jsonG(string $url, string $token = '')
+  {
+    $ch = curl_init($url);
+
+    $header = [
+      'Content-Type: application/json',
+      $token
+    ];
+
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+
+    $result = curl_exec($ch);
+
+    curl_close($ch);
+
+    return $result;
+  }
 }

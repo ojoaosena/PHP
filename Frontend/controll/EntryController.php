@@ -32,7 +32,7 @@ class EntryController
       Application::$app->session->setMessage('success', 'Entrada cadastrada');
       return Application::$app->response->redirect('/listentries');
     }
-    return Application::$app->view->render('newEntry', 'main', ['model' => $this->entry]);
+    return $this->getNewEntry();
   }
 
   public function listEntries()
@@ -45,6 +45,23 @@ class EntryController
   {
     $result = json_decode($this->entry->jsonG("$this->host/updateentry?id=" . $_GET['id']), TRUE);
     return Application::$app->view->render('updateEntry', 'main', ['model' => $this->entry, 'entry' => $result]);
+  }
+
+  public function postUpdateEntry()
+  {
+    if ($this->entry->loadData(Application::$app->request->body())) {
+      $result = json_decode($this->entry->json("$this->host/updateentry?id=" . $_GET['id']), TRUE);
+
+      Application::$app->session->setMessage('success', 'Entrada atualizada');
+      return Application::$app->response->redirect('/listentries');
+    }
+    return $this->getUpdateEntry();
+  }
+
+  public function viewEntry()
+  {
+    $result = json_decode($this->entry->jsonG("$this->host/viewentry?id=" . $_GET['id']), TRUE);
+    return Application::$app->view->render('viewEntry', 'main', ['model' => $this->entry, 'entry' => $result]);
   }
 }
 ?>

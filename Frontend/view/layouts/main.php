@@ -23,7 +23,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Home</a>
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Portaria</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -54,7 +54,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled" href="/" tabindex="-1" aria-disabled="true">Sair</a>
+              <a class="nav-link active" aria-current="page" href="/">Sair</a>
             </li>
           </ul>
         </div>
