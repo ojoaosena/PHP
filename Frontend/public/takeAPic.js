@@ -3,6 +3,7 @@ const canvasElement = document.querySelector("#canvas");
 const capture = document.querySelector("#capture");
 const post = document.querySelector("#post");
 const card = document.querySelector("#card");
+const image = document.querySelector("#image");
 
 const width = 320;
 const height = 240;
@@ -68,6 +69,7 @@ capture.addEventListener("click", event => {
     canvasElement.setAttribute("class", "m-3 border rounded border-2 border-dark");
     canvasElement.style.width = "320px";
     canvasElement.style.height = "240px";
+    image.value = new Date().toISOString().replace(/T/, '').replace(/\..+/, '').replaceAll('-', '').replaceAll(':', '') + '.png';
 
     let picture = canvasElement.toDataURL();
 
@@ -80,15 +82,8 @@ capture.addEventListener("click", event => {
     canvasElement.setAttribute("class", "d-none");
     capture.innerText = "Capturar";
     capture.setAttribute("class", "btn btn-danger");
+    image.value = "";
   }
-});
-
-post.addEventListener("click", event => {
-  let image = document.createElement("input");
-  image.type = 'text';
-  image.name = 'image';
-  image.value = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '') + '.png';
-  card.appendChild(image);
 });
 
 window.addEventListener("load", event => startMedia());

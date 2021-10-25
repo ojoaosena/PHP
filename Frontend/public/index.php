@@ -31,7 +31,16 @@ $app->router->post('/takeapicture', [VisitorController::class, 'takeAPicture']);
 
 $app->router->get('/listvisitors', [VisitorController::class, 'listVisitors']);
 
-$app->router->get('/newentry', [EntryController::class, 'newEntryG']);
+$app->router->get('/updatevisitor', [VisitorController::class, 'getUpdateVisitor']);
+$app->router->post('/updatevisitor', [VisitorController::class, 'postUpdateVisitor']);
+
+$app->router->get('/newentry', [EntryController::class, 'getNewEntry']);
+$app->router->post('/newentry', [EntryController::class, 'postNewEntry']);
+
+$app->router->get('/listentries', [EntryController::class, 'listEntries']);
+
+$app->router->get('/updateentry', [EntryController::class, 'getUpdateEntry']);
+$app->router->post('/updateentry', [EntryController::class, 'postUpdateEntry']);
 
 $app->run();
 ?>

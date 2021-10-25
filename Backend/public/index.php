@@ -4,7 +4,7 @@ date_default_timezone_set('America/Recife');
 
 require_once '../autoload.php';
 
-use app\controll\{UserController, VisitorController};
+use app\controll\{EntryController, UserController, VisitorController};
 use app\core\Application;
 
 $config = [
@@ -36,6 +36,17 @@ $app->router->get('/inactivate', [UserController::class, 'updateUser']);
 $app->router->post('/newvisitor', [VisitorController::class, 'newVisitor']);
 
 $app->router->get('/listvisitors', [VisitorController::class, 'listVisitors']);
+
+$app->router->get('/updatevisitor', [VisitorController::class, 'getUpdateVisitor']);
+$app->router->post('/updatevisitor', [VisitorController::class, 'postUpdateVisitor']);
+
+$app->router->get('/newentry', [EntryController::class, 'getNewEntry']);
+$app->router->post('/newentry', [EntryController::class, 'postNewEntry']);
+
+$app->router->get('/listentries', [EntryController::class, 'listEntries']);
+
+$app->router->get('/updateentry', [EntryController::class, 'getUpdateEntry']);
+$app->router->post('/updateentry', [EntryController::class, 'postUpdateEntry']);
 
 $app->run();
 ?>

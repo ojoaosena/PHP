@@ -32,7 +32,8 @@ class Database
   private function user()
   {
     $sql = "CREATE TABLE IF NOT EXISTS users (
-			login VARCHAR(64) PRIMARY KEY,
+      id SERIAL PRIMARY KEY,
+			login VARCHAR(64) NOT NULL,
 			password VARCHAR(128) NOT NULL,
 			profile VARCHAR(16) NOT NULL,
 			status BIT(1) NOT NULL,
@@ -44,7 +45,7 @@ class Database
   private function visitor()
   {
     $sql = "CREATE TABLE IF NOT EXISTS visitors (
-			code SERIAL PRIMARY KEY,
+      id SERIAL PRIMARY KEY,
       image VARCHAR(128) NOT NULL,
 			name VARCHAR(128) NOT NULL,
 			document VARCHAR(64) NOT NULL,
@@ -57,14 +58,15 @@ class Database
   private function entry()
   {
 		$sql = "CREATE TABLE IF NOT EXISTS entries (
-			id SERIAL PRIMARY KEY,
-			code INT REFERENCES visitors (code) NOT NULL,
+      id SERIAL PRIMARY KEY,
+			visitor_name VARCHAR(128) NOT NULL,
 			arrive TIMESTAMP NOT NULL,
-			departure TIMESTAMP NOT NULL,
+			departure TIMESTAMP,
 			model VARCHAR(16) NOT NULL,
 			plate VARCHAR(8) NOT NULL,
 			department VARCHAR(32) NOT NULL,
 			employee VARCHAR(32) NOT NULL,
+      observation VARCHAR(128),
 			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 		);";
 		$this->pdo->exec($sql);

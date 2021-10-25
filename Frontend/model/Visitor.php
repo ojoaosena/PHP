@@ -32,7 +32,7 @@ class Visitor extends Model
   public function labels(): array
   {
     return [
-      'name' => 'Nome Completo',
+      'name' => 'Nome',
       'document' => 'Identificação',
       'company' => 'Empresa',
     ];

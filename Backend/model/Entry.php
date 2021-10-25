@@ -5,26 +5,22 @@ use app\core\Model;
 
 class Entry extends Model
 {
-  public int $code;
-  public string $entry = '';
-  public string $out = '';
+  public string $visitor_name = '';
+  public string $arrive = '';
+  public $departure = NULL;
   public string $model = '';
   public string $plate = '';
   public string $department = '';
   public string $employee = '';
+  public $observation = NULL;
 
   public static function tableName(): string
   {
     return 'entries';
   }
 
-  public static function primaryKey(): string
-  {
-    return 'id';
-  }
-
   public function attributes(): array
   {
-    return ['entry', 'out', 'model', 'plate', 'department', 'employee'];
+    return ['visitor_name', 'arrive', 'departure', 'model', 'plate', 'department', 'employee', 'observation'];
   }
 }

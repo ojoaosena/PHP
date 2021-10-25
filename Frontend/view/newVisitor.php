@@ -11,6 +11,7 @@
       <div id="card" class="card-body">
         <h3 class="mb-3">Novo visitante</h3>
         <?= Application::$app->form->begin('post'); ?>
+        <input type="text" name="image" id="image" class="d-none">
         <?= Application::$app->form->input($model, 'name', 'text'); ?>
         <?= Application::$app->form->input($model, 'document', 'text'); ?>
         <?= Application::$app->form->input($model, 'company', 'text'); ?>

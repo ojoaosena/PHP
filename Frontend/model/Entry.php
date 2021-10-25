@@ -5,12 +5,13 @@ use app\core\Model;
 
 class Entry extends Model
 {
-  public string $input = '';
-  public string $output = '';
+  public string $visitor_name = '';
+  public string $arrive = '';
+  public string $departure = '';
   public string $model = '';
   public string $plate = '';
-  public string $section = '';
-  public string $responsible = '';
+  public string $department = '';
+  public string $employee = '';
   public string $observation = '';
 
   public static function tableName(): string
@@ -21,30 +22,29 @@ class Entry extends Model
   public function rules(): array
   {
     return [
-      'input' => [self::RULE_REQUIRED],
-      'output' => [self::RULE_REQUIRED],
+      'arrive' => [self::RULE_REQUIRED],
       'model' => [self::RULE_REQUIRED],
       'plate' => [self::RULE_REQUIRED],
-      'section' => [self::RULE_REQUIRED],
-      'responsible' => [self::RULE_REQUIRED],
-      'observation' => [self::RULE_REQUIRED]
+      'department' => [self::RULE_REQUIRED],
+      'employee' => [self::RULE_REQUIRED]
     ];
   }
 
   public function attributes(): array
   {
-    return ['input', 'output', 'model', 'plate', 'section', 'responsible', 'observation'];
+    return ['visitor_name', 'arrive', 'departure', 'model', 'plate', 'department', 'employee', 'observation'];
   }
 
   public function labels(): array
   {
     return [
-      'input' => 'Entrada',
-      'output' => 'Saída',
+      'visitor_name' => 'Nome',
+      'arrive' => 'Entrada',
+      'departure' => 'Saída',
       'model' => 'Modelo',
       'plate' => 'Placa',
-      'section' => 'Setor',
-      'responsible' => 'Responsável',
+      'department' => 'Setor',
+      'employee' => 'Responsável',
       'observation' => 'Observação'
     ];
   }

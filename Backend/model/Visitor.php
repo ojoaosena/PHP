@@ -15,11 +15,6 @@ class Visitor extends Model
     return 'visitors';
   }
 
-  public static function primaryKey(): string
-  {
-    return 'code';
-  }
-
   public function attributes(): array
   {
     return ['image', 'name', 'document', 'company'];

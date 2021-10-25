@@ -27,53 +27,22 @@ class VisitorController
 
   public function listVisitors()
   {
-    $visitors = $this->visitor->findAll('', 'name');
+    $visitors = $this->visitor->findAll([], 'name');
     return json_encode($visitors);
   }
 
-  public function password()
+  public function getUpdateVisitor()
   {
-    $data = json_decode(file_get_contents('php://input'), TRUE);
-    $user = $this->user->findOne(['login' => $_GET['login']]);
-    $password = password_verify($data['old'], $user->password);
-    if ($password) {
-      $data = ['password' =>  password_hash($data['password'], PASSWORD_DEFAULT)];
-      $this->user->loadData($data);
-      return json_encode($this->user->update(['password'], ['login' => $_GET['login']]));
-    }
-    return json_encode('Senha atual incorreta');
+    $visitor = $this->visitor->findOne(['id' => $_GET['id']]);
+    return json_encode($visitor);
   }
 
-  public function updateUser()
+  public function postUpdateVisitor()
   {
-    if ($_SERVER['PATH_INFO'] === '/profile')
-    {
-      $user = $this->user->findOne(['login' => $_GET['login']]);
-      if ($user->profile === 'Administrador')
-      {
-        $data = ['profile' =>  'Usuário'];
-      }
-      else
-      {
-        $data = ['profile' =>  'Administrador'];
-      }
-      $this->user->loadData($data);
-      $this->user->update(['profile'], ['login' => $_GET['login']]);
-    }
-
-    if ($_SERVER['PATH_INFO'] === '/password')
-    {
-      $data = ['password' =>  password_hash('cepe'.date('Y'), PASSWORD_DEFAULT)];
-      $this->user->loadData($data);
-      $this->user->update(['password'], ['login' => $_GET['login']]);
-    }
-
-    if ($_SERVER['PATH_INFO'] === '/inactivate')
-    {
-      $data = ['status' =>  0];
-      $this->user->loadData($data);
-      $this->user->update(['status'], ['login' => $_GET['login']]);
-    }
+    $data = json_decode(file_get_contents('php://input'), TRUE);
+    unset($data['image']);
+    $this->visitor->loadData($data);
+    return json_encode($this->visitor->update(array_keys($data), ['id' => $_GET['id']]));
   }
 }
 ?>

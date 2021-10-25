@@ -59,7 +59,7 @@ class UserController
       if (is_bool($result))
       {
         Application::$app->session->setMessage('success', 'Usuário cadastrado');
-        return Application::$app->response->redirect('/newuser');
+        return Application::$app->response->redirect('/listusers');
       }
       Application::$app->session->setMessage('danger', $result);
       return Application::$app->response->redirect('/newuser');
@@ -76,7 +76,7 @@ class UserController
   {
     if ($this->user->loadData(Application::$app->request->body()))
     {
-      $result = json_decode($this->user->json($this->host . '/updatepassword?login=' . $_SESSION['login']), TRUE);
+      $result = json_decode($this->user->json($this->host . '/updatepassword?id=' . $_SESSION['id']), TRUE);
 
       if (is_bool($result))
       {
@@ -99,20 +99,20 @@ class UserController
   {
     if ($_SERVER['PATH_INFO'] === '/profile')
     {
-      $result = json_decode($this->user->jsonG($this->host. '/profile?login=' . $_GET['login']), TRUE);
-      Application::$app->session->setMessage('success', 'Perfil de '. $_GET['login'] . ' alterado');
+      $result = json_decode($this->user->jsonG($this->host. '/profile?id=' . $_GET['id']), TRUE);
+      Application::$app->session->setMessage('success', 'Perfil de '. $_GET['id'] . ' alterado');
     }
 
     if ($_SERVER['PATH_INFO'] === '/password')
     {
-      $result = json_decode($this->user->jsonG($this->host. '/password?login=' . $_GET['login']), TRUE);
-      Application::$app->session->setMessage('success', 'Senha de '. $_GET['login'] . ' resetada');
+      $result = json_decode($this->user->jsonG($this->host. '/password?id=' . $_GET['id']), TRUE);
+      Application::$app->session->setMessage('success', 'Senha de '. $_GET['id'] . ' resetada');
     }
 
     if ($_SERVER['PATH_INFO'] === '/inactivate')
     {
-      $result = json_decode($this->user->jsonG($this->host. '/inactivate?login=' . $_GET['login']), TRUE);
-      Application::$app->session->setMessage('danger', 'Login ' . $_GET['login'] . ' desativado');
+      $result = json_decode($this->user->jsonG($this->host. '/inactivate?id=' . $_GET['id']), TRUE);
+      Application::$app->session->setMessage('danger', 'id ' . $_GET['id'] . ' desativado');
     }
     
     return Application::$app->response->redirect('/listusers');

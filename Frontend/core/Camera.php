@@ -57,8 +57,8 @@ class Camera
     $path = dirname(__DIR__) . '/public/';
     $oldFile = $path . 'image.png';
     $newPath = $path . 'images/';
-    $newFile = $newPath . $image;
-    copy($oldFile, $newFile);
+    $newFile = $newPath . $image;    
+    rename($oldFile, $newFile);
     if (file_exists($oldFile)) {
       unlink($oldFile);
     }

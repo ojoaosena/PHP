@@ -25,7 +25,8 @@ abstract class Model
 		$params = array_map(fn($attr) => ":$attr", $attributes);
 		$statement = Application::$app->database->pdo->prepare("INSERT INTO $tableName (".implode(',', $attributes).") VALUES (".implode(',', $params).")");
 
-		foreach ($attributes as $attribute) {
+		foreach ($attributes as $attribute)
+    {
 			$statement->bindValue(":$attribute", $this->{$attribute});
 		}
 
@@ -40,8 +41,8 @@ abstract class Model
 		$sql = implode("AND ", array_map(fn($attb) => "$attb = :$attb", $attrib));
 		$statement = Application::$app->database->pdo->prepare("UPDATE $tableName SET $params WHERE $sql");
 
-		foreach ($attributes as $attribute) {
-
+		foreach ($attributes as $attribute)
+    {
       foreach ($where as $key => $item) {
         $statement->bindValue(":$attribute", $this->{$attribute});
         $statement->bindValue(":$key", $item);

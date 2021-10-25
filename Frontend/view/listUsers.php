@@ -24,9 +24,9 @@
         <?php endforeach ?>
         <div class="col-3 text-truncate">
           <div class="d-flex justify-content-evenly">
-            <a href="/profile?login=<?=$user['login']?>" class="link-dark"><i data-feather="<?= $user['profile'] === 'Usuário' ? 'user' : 'user-check' ?>" class="align-top"></i></a>
-            <a href="/password?login=<?=$user['login']?>" class="link-dark"><i data-feather="key" class="align-top"></i></a>
-            <a href="/inactivate?login=<?=$user['login']?>" class="link-danger"><i data-feather="delete" class="align-top"></i></a>
+            <a href="/profile?id=<?=$user['id']?>" class="link-dark"><i data-feather="<?= $user['profile'] === 'Usuário' ? 'user' : 'user-check' ?>" class="align-top"></i></a>
+            <a href="/password?id=<?=$user['id']?>" class="link-dark"><i data-feather="key" class="align-top"></i></a>
+            <a href="/inactivate?id=<?=$user['id']?>" class="link-danger"><i data-feather="delete" class="align-top"></i></a>
           </div>
         </div>
       </div>
