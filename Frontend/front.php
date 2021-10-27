@@ -22,24 +22,20 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 
 curl_setopt($ch, CURLOPT_HEADERFUNCTION, 'header_callback');
-//   function($curl, $header) use (&$headers)
-//   {
-//     $len = strlen($header);
-//     $header = explode(':', $header, 2);
-//     if (count($header) < 2) // ignore invalid headers
-//       return $len;
 
-//     $headers[strtolower(trim($header[0]))][] = trim($header[1]);
-
-//     return $len;
-//   }
-// );
-
-function header_callback($ch, $header_line)
+function header_callback($ch, $header)
 { 
   global $headers;
-  $headers[] = $header_line;
-  return strlen($header_line);
+  $length = strlen($header);
+  $header = explode(':', $header, 2);
+  if (count($header) < 2)
+  {
+    return $length;
+  }
+
+  $headers[$header[0]] = trim($header[1]);
+
+  return $length;
 }
 
 // Execute the POST request
@@ -48,5 +44,7 @@ $result = curl_exec($ch);
 // Close cURL resource
 curl_close($ch);
 
-var_dump($headers);
+apcu_store('auth', $headers['Authorization'], 10);
+$auth = apcu_fetch('auth');
+var_dump($auth);
 ?>
